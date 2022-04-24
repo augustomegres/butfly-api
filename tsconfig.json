@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "commonjs",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "rootDir": ".",
+    "outDir": "./dist",
+    "baseUrl": ".",
+
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@app/*": ["./src/app/*"],
+      "@http/*": ["./src/http/*"],
+      "@infra/*": ["./src/infra/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@repositories/*": ["./src/repositories/*"],
+      "@entities/*": ["./src/entities/*"],
+      "@factories/*": ["./src/factories/*"]
+    }
+  }
+}
