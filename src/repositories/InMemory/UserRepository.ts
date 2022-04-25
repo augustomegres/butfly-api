@@ -3,6 +3,9 @@ import { User } from "@entities/User";
 
 export class UserRepository implements IUserRepository {
   users: User[] = [];
+  constructor(users: User[] = []) {
+    this.users = users;
+  }
 
   async findByEmail(email: string): Promise<User | null> {
     return this.users.find((user) => user.email === email) || null;
