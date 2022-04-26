@@ -1,7 +1,10 @@
 import { IRepositoryFactory } from "@src/factories/interfaces/IRepositoryFactory";
 import { IUserRepository } from "@src/repositories/Interfaces/IUserRepository";
 import { AppError } from "@src/shared/errors/AppError";
+import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
+
+const secret = process.env.JWT_SECRET as string;
 
 export class AuthenticateUserUseCase {
   userRepository: IUserRepository;
@@ -20,6 +23,8 @@ export class AuthenticateUserUseCase {
     if (!user) throw new AppError("User not found.", 404);
     const isValid = bcrypt.compareSync(password, user.password);
     if (!isValid) throw new AppError("Invalid password.", 401);
-    return { token: "token" };
+
+    const token = jwt.sign({ uid: user.uid }, secret, { expiresIn: "1d" });
+    return { token };
   }
 }
