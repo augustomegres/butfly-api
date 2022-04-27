@@ -1,8 +1,11 @@
-import { userRoutes } from "@http/routes/user.routes";
+import { authenticationRoutes } from "@src/http/routes/authentication.routes";
 import { Router } from "express";
+import { authMiddleware } from "../middlewares/authMiddleware";
 
 const appRoutes = Router();
 
-appRoutes.use("/", userRoutes);
+appRoutes.use("/", authenticationRoutes);
+
+appRoutes.use(authMiddleware);
 
 export { appRoutes };
