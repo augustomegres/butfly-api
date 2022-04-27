@@ -7,6 +7,7 @@ const tsconfig = require("./tsconfig.json");
 const moduleNameMapper = require("tsconfig-paths-jest")(tsconfig);
 export default {
   clearMocks: true,
+  setupFiles: ["dotenv/config"],
   coverageProvider: "v8",
   collectCoverage: true,
   collectCoverageFrom: [
