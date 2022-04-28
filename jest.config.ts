@@ -10,6 +10,7 @@ export default {
   setupFiles: ["dotenv/config"],
   coverageProvider: "v8",
   collectCoverage: true,
+  testRegex: ".test.ts$",
   collectCoverageFrom: [
     "<rootDir>/src/**/*.ts",
     "!<rootDir>/src/server.ts",
