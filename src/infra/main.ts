@@ -2,7 +2,9 @@ import { CreateUserUseCase } from "@app/useCases/CreateUser";
 import { PrismaRepositoryFactory } from "@factories/repositories/PrismaRepositoryFactory";
 import { CreateUserController } from "@http/controllers/CreateUserController";
 import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser";
+import { CreateCompanyUseCase } from "@src/app/useCases/CreateCompany";
 import { AuthenticateUserController } from "@src/http/controllers/AuthenticateUserController";
+import { CreateCompanyController } from "@src/http/controllers/CreateCompanyController";
 
 const repositoryFactory = new PrismaRepositoryFactory();
 
@@ -14,4 +16,13 @@ const authenticateUserController = new AuthenticateUserController(
   authenticateUserUseCase
 );
 
-export { createUserController, authenticateUserController };
+const createCompanyUseCase = new CreateCompanyUseCase(repositoryFactory);
+const createCompanyController = new CreateCompanyController(
+  createCompanyUseCase
+);
+
+export {
+  createUserController,
+  authenticateUserController,
+  createCompanyController,
+};

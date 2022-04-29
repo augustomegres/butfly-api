@@ -8,6 +8,16 @@ const data = {
   name: "Company",
 };
 
+const address = {
+  city: "Any city",
+  neighborhood: "Any neighborhood",
+  number: "122",
+  state: "MG",
+  street: "Any street",
+  zipCode: "36773-000",
+  complement: "Any complement",
+};
+
 describe("CreateCompany", () => {
   it("should be possible to create a new company", async () => {
     await expect(createCompanyUseCase.execute(data)).resolves.toHaveProperty(
@@ -18,17 +28,7 @@ describe("CreateCompany", () => {
   it("should store address in new company request", async () => {
     const company = await createCompanyUseCase.execute({
       ...data,
-      addresses: [
-        {
-          city: "Any city",
-          neighborhood: "Any neighborhood",
-          number: "122",
-          state: "MG",
-          street: "Any street",
-          zipCode: "36773-000",
-          complement: "Any complement",
-        },
-      ],
+      addresses: [address],
     });
     expect(company.addresses).toHaveLength(1);
     expect(company.addresses[0]).toHaveProperty("uid");
@@ -78,6 +78,15 @@ describe("CreateCompany", () => {
     ).rejects.toThrow();
   });
 
+  it("should not be possible to create a company with invalid cnpj", async () => {
+    await expect(
+      createCompanyUseCase.execute({
+        ...data,
+        cnpj: "invalid",
+      })
+    ).rejects.toThrow();
+  });
+
   it("should not be possible to create a new company with an invalid name", async () => {
     await expect(
       createCompanyUseCase.execute({ ...data, name: "" })
@@ -86,5 +95,14 @@ describe("CreateCompany", () => {
     await expect(
       createCompanyUseCase.execute({ ...data, name: "a" })
     ).rejects.toThrow("Company name must be valid");
+  });
+
+  it("should not be possible to create a company with invalid zipCode", async () => {
+    await expect(
+      createCompanyUseCase.execute({
+        ...data,
+        addresses: [{ ...address, zipCode: "invalid" }],
+      })
+    ).rejects.toThrow("ZipCode is invalid.");
   });
 });

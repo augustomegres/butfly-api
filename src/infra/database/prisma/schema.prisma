@@ -19,3 +19,55 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+model Company {
+  id        Int      @id @default(autoincrement())
+  uid       String   @unique @default(cuid())
+  name      String
+  cnpj      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  addresses CompanyAddress[]
+  phones    CompanyPhones[]
+  emails    CompanyEmails[]
+}
+
+model CompanyAddress {
+  id           Int      @id @default(autoincrement())
+  uid          String   @unique @default(cuid())
+  companyId    Int
+  street       String
+  number       String
+  neighborhood String
+  complement   String?
+  city         String
+  state        String
+  zipCode      String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id])
+}
+
+model CompanyPhones {
+  id        Int      @id @default(autoincrement())
+  uid       String   @unique @default(cuid())
+  companyId Int
+  phone     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id])
+}
+
+model CompanyEmails {
+  id        Int      @id @default(autoincrement())
+  uid       String   @unique @default(cuid())
+  companyId Int
+  email     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  company Company @relation(fields: [companyId], references: [id])
+}
