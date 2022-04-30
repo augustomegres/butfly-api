@@ -1,9 +1,5 @@
 import { Address } from "@src/entities/Address";
-import { Cnpj } from "@src/entities/Cnpj";
 import { Company } from "@src/entities/Company";
-import { Email } from "@src/entities/Email";
-import { Phone } from "@src/entities/Phone";
-import { ZipCode } from "@src/entities/ZipCode";
 import { IRepositoryFactory } from "@src/factories/interfaces/IRepositoryFactory";
 import { ICompanyRepository } from "@src/repositories/Interfaces/ICompanyRepository";
 import { v4 } from "uuid";
@@ -31,7 +27,10 @@ export class CreateCompanyUseCase {
     this.companyRepository = repositoryFactory.createCompanyRepository();
   }
 
-  async execute(data: CreateCompanyData): Promise<Company> {
+  async execute(
+    data: CreateCompanyData,
+    userId: string | number
+  ): Promise<Company> {
     const addresses: Address[] = [];
     data.addresses?.forEach((address) => {
       addresses.push(
@@ -63,7 +62,7 @@ export class CreateCompanyUseCase {
       emails,
     });
 
-    await this.companyRepository.create(company);
+    await this.companyRepository.create(company, userId);
 
     return company;
   }

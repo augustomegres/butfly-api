@@ -7,15 +7,19 @@ export class CreateCompanyController {
     this.createCompanyUseCase = createCompanyUseCase;
   }
 
-  async handle(req: Request, res: Response) {
+  async handle(req: any, res: Response) {
     const { name, cnpj, addresses, emails, phones } = req.body;
-    const company = await this.createCompanyUseCase.execute({
-      name,
-      cnpj,
-      addresses,
-      emails,
-      phones,
-    });
+    console.log(req.user.uid);
+    const company = await this.createCompanyUseCase.execute(
+      {
+        name,
+        cnpj,
+        addresses,
+        emails,
+        phones,
+      },
+      req.user.uid
+    );
     return res.status(201).json(company);
   }
 }

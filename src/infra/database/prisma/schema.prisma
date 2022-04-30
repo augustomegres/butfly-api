@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,32 +8,44 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  uid       String   @unique @default(cuid())
-  name      String
-  email     String
-  password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          Int           @default(autoincrement())
+  uid         String        @id @unique @default(cuid())
+  name        String
+  email       String
+  password    String
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  companyUser CompanyUser[]
+}
+
+model CompanyUser {
+  userUid    String
+  companyUid String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  companies  Company  @relation(fields: [companyUid], references: [uid])
+  users      User     @relation(fields: [userUid], references: [uid])
+
+  @@id([userUid, companyUid])
 }
 
 model Company {
-  id        Int      @id @default(autoincrement())
-  uid       String   @unique @default(cuid())
-  name      String
-  cnpj      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  addresses CompanyAddress[]
-  phones    CompanyPhones[]
-  emails    CompanyEmails[]
+  id           Int              @default(autoincrement())
+  uid          String           @id @unique @default(cuid())
+  name         String
+  cnpj         String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  addresses    CompanyAddress[]
+  emails       CompanyEmails[]
+  phones       CompanyPhones[]
+  companyUsers CompanyUser[]
 }
 
 model CompanyAddress {
-  id           Int      @id @default(autoincrement())
-  uid          String   @unique @default(cuid())
-  companyId    Int
+  id           Int      @default(autoincrement())
+  uid          String   @id @unique @default(cuid())
+  companyUid   String
   street       String
   number       String
   neighborhood String
@@ -46,28 +55,25 @@ model CompanyAddress {
   zipCode      String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-
-  company Company @relation(fields: [companyId], references: [id])
+  company      Company  @relation(fields: [companyUid], references: [uid])
 }
 
 model CompanyPhones {
-  id        Int      @id @default(autoincrement())
-  uid       String   @unique @default(cuid())
-  companyId Int
-  phone     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  company Company @relation(fields: [companyId], references: [id])
+  id         Int      @default(autoincrement())
+  uid        String   @id @unique @default(cuid())
+  companyUid String
+  phone      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  company    Company  @relation(fields: [companyUid], references: [uid])
 }
 
 model CompanyEmails {
-  id        Int      @id @default(autoincrement())
-  uid       String   @unique @default(cuid())
-  companyId Int
-  email     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  company Company @relation(fields: [companyId], references: [id])
+  id         Int      @default(autoincrement())
+  uid        String   @id @unique @default(cuid())
+  companyUid String
+  email      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  company    Company  @relation(fields: [companyUid], references: [uid])
 }

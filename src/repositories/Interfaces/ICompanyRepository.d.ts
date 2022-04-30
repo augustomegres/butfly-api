@@ -5,5 +5,5 @@ import { Cnpj } from "@src/entities/Cnpj";
 import { Company } from "@src/entities/Company";
 
 export interface ICompanyRepository {
-  create(data: Company): Promise<Company>;
+  create(data: Company, userId: string | number): Promise<Company>;
 }

@@ -24,7 +24,9 @@ export class AuthenticateUserUseCase {
     const isValid = bcrypt.compareSync(password, user.password);
     if (!isValid) throw new AppError("Invalid password.", 401);
 
-    const token = jwt.sign({ uid: user.uid }, secret, { expiresIn: "1d" });
+    const token = jwt.sign({ id: user.id, uid: user.uid }, secret, {
+      expiresIn: "1d",
+    });
     return { token };
   }
 }

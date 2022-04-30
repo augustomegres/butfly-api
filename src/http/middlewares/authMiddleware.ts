@@ -4,12 +4,12 @@ import { verify } from "jsonwebtoken";
 
 const secret = process.env.JWT_SECRET as string;
 
-interface IRequest extends Request {
-  user?: { id: string };
+interface TokenPayload {
+  id: string;
 }
 
 export async function authMiddleware(
-  request: IRequest,
+  request: any,
   response: Response,
   next: NextFunction
 ) {
@@ -22,8 +22,8 @@ export async function authMiddleware(
   const [, token] = authorization.split(" ");
 
   try {
-    const { id } = verify(token, secret) as { id: string };
-    const user = { id };
+    const payload = verify(token, secret) as TokenPayload;
+    const user = payload;
     request.user = user;
 
     return next();
