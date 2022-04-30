@@ -9,7 +9,6 @@ export class CreateCompanyController {
 
   async handle(req: any, res: Response) {
     const { name, cnpj, addresses, emails, phones } = req.body;
-    console.log(req.user.uid);
     const company = await this.createCompanyUseCase.execute(
       {
         name,
