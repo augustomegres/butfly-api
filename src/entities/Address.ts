@@ -1,4 +1,5 @@
 import { ZipCode } from "@entities/ZipCode";
+import { AppError } from "@src/shared/errors/AppError";
 import { v4 } from "uuid";
 
 export class Address {
@@ -25,6 +26,12 @@ export class Address {
     createdAt,
     updatedAt,
   }: Address) {
+    if (!street) throw new AppError("Street is required");
+    if (!number) throw new AppError("Number is required");
+    if (!neighborhood) throw new AppError("Neighborhood is required");
+    if (!city) throw new AppError("City is required");
+    if (!state) throw new AppError("State is required");
+    if (!zipCode) throw new AppError("ZipCode is required");
     const { value: zipCodeValue } = new ZipCode(zipCode);
 
     this.uid = uid;

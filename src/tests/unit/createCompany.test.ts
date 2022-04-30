@@ -34,6 +34,120 @@ describe("CreateCompany", () => {
     expect(company.addresses[0]).toHaveProperty("uid");
   });
 
+  it("should throw an error if address neighborhood was not provided", async () => {
+    const company = createCompanyUseCase.execute({
+      ...data,
+      addresses: [
+        {
+          city: "Any city",
+          neighborhood: "",
+          number: "122",
+          state: "MG",
+          street: "Any street",
+          zipCode: "36773-000",
+        },
+      ],
+    });
+    await expect(company).rejects.toThrow("Neighborhood is required");
+  });
+
+  it("should throw an error if address city was not provided", async () => {
+    const company = createCompanyUseCase.execute({
+      ...data,
+      addresses: [
+        {
+          city: "",
+          neighborhood: "Any neighborhood",
+          number: "122",
+          state: "MG",
+          street: "Any street",
+          zipCode: "36773-000",
+        },
+      ],
+    });
+    await expect(company).rejects.toThrow("City is required");
+  });
+
+  it("should throw an error if address number was not provided", async () => {
+    const company = createCompanyUseCase.execute({
+      ...data,
+      addresses: [
+        {
+          city: "Any city",
+          neighborhood: "Any neighborhood",
+          number: "",
+          state: "MG",
+          street: "Any street",
+          zipCode: "36773-000",
+        },
+      ],
+    });
+    await expect(company).rejects.toThrow("Number is required");
+  });
+  it("should throw an error if address state was not provided", async () => {
+    const company = createCompanyUseCase.execute({
+      ...data,
+      addresses: [
+        {
+          city: "Any city",
+          neighborhood: "Any neighborhood",
+          number: "12",
+          state: "",
+          street: "Any street",
+          zipCode: "36773-000",
+        },
+      ],
+    });
+    await expect(company).rejects.toThrow("State is required");
+  });
+  it("should throw an error if address street was not provided", async () => {
+    const company = createCompanyUseCase.execute({
+      ...data,
+      addresses: [
+        {
+          city: "Any city",
+          neighborhood: "Any neighborhood",
+          number: "12",
+          state: "MG",
+          street: "",
+          zipCode: "36773-000",
+        },
+      ],
+    });
+    await expect(company).rejects.toThrow("Street is required");
+  });
+  it("should throw an error if address street was not provided", async () => {
+    const company = createCompanyUseCase.execute({
+      ...data,
+      addresses: [
+        {
+          city: "Any city",
+          neighborhood: "Any neighborhood",
+          number: "12",
+          state: "MG",
+          street: "",
+          zipCode: "36773-000",
+        },
+      ],
+    });
+    await expect(company).rejects.toThrow("Street is required");
+  });
+  it("should throw an error if address zipCode was not provided", async () => {
+    const company = createCompanyUseCase.execute({
+      ...data,
+      addresses: [
+        {
+          city: "Any city",
+          neighborhood: "Any neighborhood",
+          number: "12",
+          state: "MG",
+          street: "Any street",
+          zipCode: "",
+        },
+      ],
+    });
+    await expect(company).rejects.toThrow("ZipCode is required");
+  });
   it("should store phones in new company request", async () => {
     const company = await createCompanyUseCase.execute({
       ...data,
