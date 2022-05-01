@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import { Company } from "@src/entities/Company";
 import { ICompanyRepository } from "@repositories/Interfaces/ICompanyRepository";
+import { Address } from "@entities/Address";
 
 export class CompanyRepository implements ICompanyRepository {
   database: PrismaClient;
@@ -9,9 +10,9 @@ export class CompanyRepository implements ICompanyRepository {
   }
 
   async create(data: Company, userUid: string): Promise<Company> {
-    const addresses = data.addresses || [];
-    const emails = data.emails || [];
-    const phones = data.phones || [];
+    const addresses = data.addresses as Address[];
+    const emails = data.emails as { uid: string; email: string }[];
+    const phones = data.phones as { uid: string; phone: string }[];
     await this.database.company.create({
       data: {
         uid: data.uid,

@@ -15,12 +15,10 @@ export class UserRepository implements IUserRepository {
       include: { companyUser: true },
     });
 
-    if (!user) throw new AppError("User was not found");
-
     const companies = await this.database.company.findMany({
       where: {
         uid: {
-          in: user.companyUser.map((companyUser) => companyUser.companyUid),
+          in: user?.companyUser.map((companyUser) => companyUser.companyUid),
         },
       },
     });
@@ -32,6 +30,7 @@ export class UserRepository implements IUserRepository {
     const user = await this.database.user.findFirst({ where: { email } });
     return user;
   }
+
   async create(data: User): Promise<User> {
     await this.database.user.create({ data });
     return data;

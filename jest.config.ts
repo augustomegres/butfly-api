@@ -16,6 +16,7 @@ export default {
     "!<rootDir>/src/server.ts",
     "!<rootDir>/src/**/*.test.environment.ts",
     "!<rootDir>/src/**/*.d.ts",
+    "!<rootDir>/src/http/middlewares/errorMiddleware.ts",
   ],
   coverageDirectory: "coverage",
   coverageReporters: ["text-summary", "lcov"],

@@ -5,6 +5,7 @@ import { ICompanyRepository } from "@repositories/Interfaces/ICompanyRepository"
 import { CompanyRepository } from "@src/repositories/Prisma/CompanyRepository";
 import { ICustomerRepository } from "@src/repositories/Interfaces/ICustomerRepository";
 import { PrismaClient } from "@prisma/client";
+import { CustomerRepository } from "@repositories/Prisma/CustomerRepository";
 
 const prismaClient = new PrismaClient();
 export class PrismaRepositoryFactory implements IRepositoryFactory {
@@ -15,6 +16,6 @@ export class PrismaRepositoryFactory implements IRepositoryFactory {
     return new CompanyRepository(prismaClient);
   }
   createCustomerRepository(): ICustomerRepository {
-    throw new Error("Method not implemented.");
+    return new CustomerRepository(prismaClient);
   }
 }

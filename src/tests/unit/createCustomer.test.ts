@@ -91,4 +91,16 @@ describe("CreateCustomer", () => {
       })
     ).resolves.toBeDefined();
   });
+  it("should not be possible to create a customer if name was not provided", async () => {
+    await expect(
+      createCustomerUseCase.execute({
+        data: {
+          ...validCustomer,
+          name: "",
+        },
+        companyUid: company.uid,
+        userUid: user.uid,
+      })
+    ).rejects.toThrow();
+  });
 });
