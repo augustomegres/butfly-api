@@ -1,6 +1,6 @@
 import { authenticationRoutes } from "@src/http/routes/authentication.routes";
 import { Router } from "express";
-import { authMiddleware } from "../middlewares/authMiddleware";
+import { authMiddleware } from "@http/middlewares/authMiddleware";
 import { company } from "./company.routes";
 
 const appRoutes = Router();

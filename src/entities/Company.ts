@@ -7,10 +7,10 @@ import { AppError } from "@src/shared/errors/AppError";
 export class Company {
   uid: string;
   name: string;
-  cnpj?: string;
-  addresses: Address[];
-  phones: { uid: string; phone: string }[];
-  emails: { uid: string; email: string }[];
+  cnpj?: string | null;
+  addresses?: Address[] | null;
+  phones?: { uid: string; phone: string }[] | null;
+  emails?: { uid: string; email: string }[] | null;
 
   constructor({
     uid,

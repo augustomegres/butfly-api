@@ -1,9 +1,9 @@
 import { Customer } from "@src/entities/Customer";
-import { ICustomerRepository } from "../Interfaces/ICustomerRepository";
+import { ICustomerRepository } from "@repositories/Interfaces/ICustomerRepository";
 
 export class CustomerRepository implements ICustomerRepository {
   customers: Customer[];
-  constructor(customers: Customer[] = []) {
+  constructor(customers: Customer[]) {
     this.customers = customers;
   }
 

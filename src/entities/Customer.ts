@@ -9,26 +9,26 @@ export class Customer {
   name: string;
   surname?: string;
   observations?: string;
-  addresses?: Address[] = [];
-  emails?: { uid: string; email: string }[];
-  phones?: { uid: string; phone: string }[];
+  addresses: Address[];
+  emails: { uid: string; email: string }[];
+  phones: { uid: string; phone: string }[];
 
   constructor({
     uid,
     name,
     surname,
     observations,
-    addresses,
-    emails,
-    phones,
+    addresses = [],
+    emails = [],
+    phones = [],
   }: {
     uid: string;
     name: string;
     surname?: string;
     observations?: string;
-    addresses?: Address[];
-    phones?: { uid: string; phone: string }[];
-    emails?: { uid: string; email: string }[];
+    addresses: Address[];
+    phones: { uid: string; phone: string }[];
+    emails: { uid: string; email: string }[];
   }) {
     if (!name) throw new AppError("Customer name is required");
     const { value: nameValue } = new Name(name);

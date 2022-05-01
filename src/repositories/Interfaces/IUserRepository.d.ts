@@ -5,6 +5,7 @@ export interface CreateUserData {
 }
 
 export interface IUserRepository {
-  findByEmail(email: string): Promise<User | null>;
   create(data: CreateUserData): Promise<User>;
+  findByEmail(email: string): Promise<User | null>;
+  findCompanies(userUid: string): Promise<Company[]>;
 }

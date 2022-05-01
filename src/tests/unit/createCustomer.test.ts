@@ -1,10 +1,18 @@
+import { CreateCompanyUseCase } from "@app/useCases/CreateCompany";
+import { CreateUserUseCase } from "@app/useCases/CreateUser";
+import { Company } from "@entities/Company";
+import { User } from "@entities/User";
 import { CreateCustomerUseCase } from "@src/app/useCases/CreateCustomer";
 import { MemoryRepositoryFactory } from "@src/factories/repositories/MemoryRepositoryFactory";
 import { v4 } from "uuid";
 
-const repositoryFactory = new MemoryRepositoryFactory();
-const createCustomerUseCase = new CreateCustomerUseCase(repositoryFactory);
+let user: User;
+let company: Company;
 
+const repositoryFactory = new MemoryRepositoryFactory();
+const createUserUseCase = new CreateUserUseCase(repositoryFactory);
+const createCompanyUseCase = new CreateCompanyUseCase(repositoryFactory);
+const createCustomerUseCase = new CreateCustomerUseCase(repositoryFactory);
 describe("CreateCustomer", () => {
   const validCustomer = {
     name: "John Doe",
@@ -26,12 +34,21 @@ describe("CreateCustomer", () => {
     ],
   };
 
+  beforeAll(async () => {
+    user = await createUserUseCase.execute({
+      name: "John Doe",
+      email: "any@mail.com",
+      password: "12345678",
+    });
+
+    company = await createCompanyUseCase.execute({ name: "Company" }, user.uid);
+  });
   it("should be possible to create a customer", async () => {
     await expect(
       createCustomerUseCase.execute({
         data: validCustomer,
-        companyUid: v4(),
-        userUid: v4(),
+        companyUid: company.uid,
+        userUid: user.uid,
       })
     ).resolves.toBeDefined();
   });
@@ -43,9 +60,8 @@ describe("CreateCustomer", () => {
           ...validCustomer,
           addresses: undefined,
         },
-
-        companyUid: v4(),
-        userUid: v4(),
+        companyUid: company.uid,
+        userUid: user.uid,
       })
     ).resolves.toBeDefined();
   });
@@ -57,8 +73,8 @@ describe("CreateCustomer", () => {
           ...validCustomer,
           phones: undefined,
         },
-        companyUid: v4(),
-        userUid: v4(),
+        companyUid: company.uid,
+        userUid: user.uid,
       })
     ).resolves.toBeDefined();
   });
@@ -70,8 +86,8 @@ describe("CreateCustomer", () => {
           ...validCustomer,
           emails: undefined,
         },
-        companyUid: v4(),
-        userUid: v4(),
+        companyUid: company.uid,
+        userUid: user.uid,
       })
     ).resolves.toBeDefined();
   });

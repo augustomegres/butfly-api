@@ -1,3 +1,4 @@
+import { Address } from "@entities/Address";
 import { CreateCompanyUseCase } from "@src/app/useCases/CreateCompany";
 import { MemoryRepositoryFactory } from "@src/factories/repositories/MemoryRepositoryFactory";
 
@@ -27,14 +28,17 @@ describe("CreateCompany", () => {
 
   it("should store address in new company request", async () => {
     const company = await createCompanyUseCase.execute(
-      {
-        ...data,
-        addresses: [address],
-      },
+      { ...data, addresses: [address] },
       1
     );
     expect(company.addresses).toHaveLength(1);
-    expect(company.addresses[0]).toHaveProperty("uid");
+    expect(company.addresses).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          uid: expect.any(String),
+        }),
+      ])
+    );
   });
 
   it("should throw an error if address neighborhood was not provided", async () => {
@@ -181,7 +185,13 @@ describe("CreateCompany", () => {
       1
     );
     expect(company.phones).toHaveLength(1);
-    expect(company.phones[0]).toHaveProperty("uid");
+    expect(company.phones).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          uid: expect.any(String),
+        }),
+      ])
+    );
   });
 
   it("should store emails in new company request", async () => {
@@ -193,7 +203,13 @@ describe("CreateCompany", () => {
       1
     );
     expect(company.emails).toHaveLength(1);
-    expect(company.emails[0]).toHaveProperty("uid");
+    expect(company.emails).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          uid: expect.any(String),
+        }),
+      ])
+    );
   });
 
   it("should store cnpj in new company request", async () => {

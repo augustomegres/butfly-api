@@ -1,6 +1,7 @@
+import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
+import { AppError } from "@shared/errors/AppError";
 import { Address } from "@src/entities/Address";
 import { Customer } from "@src/entities/Customer";
-import { Phone } from "@src/entities/Phone";
 import { IRepositoryFactory } from "@src/factories/interfaces/IRepositoryFactory";
 import { ICustomerRepository } from "@src/repositories/Interfaces/ICustomerRepository";
 import { v4 } from "uuid";
@@ -16,8 +17,10 @@ export interface CreateCustomerData {
 
 export class CreateCustomerUseCase {
   customerRepository: ICustomerRepository;
+  userRepository: IUserRepository;
   constructor(repositoryFactory: IRepositoryFactory) {
     this.customerRepository = repositoryFactory.createCustomerRepository();
+    this.userRepository = repositoryFactory.createUserRepository();
   }
 
   async execute({
@@ -29,6 +32,12 @@ export class CreateCustomerUseCase {
     companyUid: string;
     userUid: string;
   }): Promise<any> {
+    const userCompanies = await this.userRepository.findCompanies(userUid);
+    if (userCompanies.length === 0) throw new AppError("Company was not found");
+
+    const company = userCompanies.find((company) => companyUid === company.uid);
+    if (!company) throw new AppError("Company was not found");
+
     const addresses: Address[] = [];
     data.addresses?.map((address) => {
       addresses.push(

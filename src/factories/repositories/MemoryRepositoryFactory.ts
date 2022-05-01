@@ -1,4 +1,4 @@
-import { IRepositoryFactory } from "../interfaces/IRepositoryFactory";
+import { IRepositoryFactory } from "@factories/interfaces/IRepositoryFactory";
 
 import { UserRepository } from "@repositories/InMemory/UserRepository";
 import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
@@ -8,18 +8,34 @@ import { ICompanyRepository } from "@src/repositories/Interfaces/ICompanyReposit
 
 import { CustomerRepository } from "@src/repositories/InMemory/CustomerRepository";
 import { ICustomerRepository } from "@src/repositories/Interfaces/ICustomerRepository";
+import { User } from "@entities/User";
+import { Company } from "@entities/Company";
+import { Customer } from "@entities/Customer";
 
 export class MemoryRepositoryFactory implements IRepositoryFactory {
-  memoryRepository = {
+  memoryRepository: {
+    users: User[];
+    companies: Company[];
+    companyUsers: { userUid: string; companyUid: string }[];
+    customers: Customer[];
+  } = {
     users: [],
     companies: [],
+    companyUsers: [],
     customers: [],
   };
   createUserRepository(): IUserRepository {
-    return new UserRepository(this.memoryRepository.users);
+    return new UserRepository(
+      this.memoryRepository.users,
+      this.memoryRepository.companyUsers,
+      this.memoryRepository.companies
+    );
   }
   createCompanyRepository(): ICompanyRepository {
-    return new CompanyRepository(this.memoryRepository.companies);
+    return new CompanyRepository(
+      this.memoryRepository.companies,
+      this.memoryRepository.companyUsers
+    );
   }
   createCustomerRepository(): ICustomerRepository {
     return new CustomerRepository(this.memoryRepository.customers);
