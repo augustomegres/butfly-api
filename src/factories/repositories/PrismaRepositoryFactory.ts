@@ -3,13 +3,16 @@ import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
 import { UserRepository } from "@repositories/Prisma/UserRepository";
 import { ICompanyRepository } from "@repositories/Interfaces/ICompanyRepository";
 import { CompanyRepository } from "@src/repositories/Prisma/CompanyRepository";
+import { ICustomerRepository } from "@src/repositories/Interfaces/ICustomerRepository";
 
 export class PrismaRepositoryFactory implements IRepositoryFactory {
+  createUserRepository(): IUserRepository {
+    return new UserRepository();
+  }
   createCompanyRepository(): ICompanyRepository {
     return new CompanyRepository();
   }
-
-  createUserRepository(): IUserRepository {
-    return new UserRepository();
+  createCustomerRepository(): ICustomerRepository {
+    throw new Error("Method not implemented.");
   }
 }
