@@ -1,15 +1,19 @@
 import { User } from "@entities/User";
 import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 
 export class UserRepository implements IUserRepository {
+  database: PrismaClient;
+  constructor(prismaDatabase: PrismaClient) {
+    this.database = prismaDatabase;
+  }
+
   async findByEmail(email: string): Promise<User | null> {
-    const user = await prisma.user.findFirst({ where: { email } });
+    const user = await this.database.user.findFirst({ where: { email } });
     return user;
   }
   async create(data: User): Promise<User> {
-    await prisma.user.create({ data });
+    await this.database.user.create({ data });
     return data;
   }
 }

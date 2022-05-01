@@ -2,11 +2,14 @@ import { PrismaClient } from "@prisma/client";
 import { Company } from "@src/entities/Company";
 import { ICompanyRepository } from "../Interfaces/ICompanyRepository";
 
-const prisma = new PrismaClient();
-
 export class CompanyRepository implements ICompanyRepository {
+  database: PrismaClient;
+  constructor(prismaDatabase: PrismaClient) {
+    this.database = prismaDatabase;
+  }
+
   async create(data: Company, userUid: string): Promise<Company> {
-    await prisma.company.create({
+    await this.database.company.create({
       data: {
         uid: data.uid,
         name: data.name,
