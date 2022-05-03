@@ -18,7 +18,9 @@ export class UserRepository implements IUserRepository {
     const companies = await this.database.company.findMany({
       where: {
         uid: {
-          in: user?.companyUser.map((companyUser) => companyUser.companyUid),
+          in: user?.companyUser.map(
+            (companyUser: any) => companyUser.companyUid
+          ),
         },
       },
     });
