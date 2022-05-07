@@ -26,8 +26,8 @@ model Company {
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
   addresses       CompanyAddress[]
-  emails          CompanyEmails[]
-  phones          CompanyPhones[]
+  emails          CompanyEmail[]
+  phones          CompanyPhone[]
   companyUsers    CompanyUser[]
   companyCustomer CompanyCustomer[]
 }
@@ -40,10 +40,61 @@ model Customer {
   observations    String?
   createdAt       DateTime          @default(now())
   updatedAt       DateTime          @updatedAt
-  emails          CustomerEmails[]
-  phones          CustomerPhones[]
+  emails          CustomerEmail[]
+  phones          CustomerPhone[]
   addresses       CustomerAddress[]
   companyCustomer CompanyCustomer[]
+}
+
+model Product {
+  id                  Int      @default(autoincrement())
+  uid                 String   @id @unique @default(cuid())
+  name                String
+  properties          String?
+  availableProperties String[]
+  description         String?
+  createdAt           DateTime @default(now())
+  updatedAt           DateTime @updatedAt
+
+  variant Variant[]
+}
+
+model Variant {
+  id          Int      @default(autoincrement())
+  uid         String   @id @unique @default(cuid())
+  productUid  String
+  quantity    Int
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  images          VariantImage[]
+  variantProperty VariantProperty[]
+
+  Products Product @relation(fields: [productUid], references: [uid])
+}
+
+model VariantProperty {
+  id         Int      @default(autoincrement())
+  uid        String   @id @unique @default(cuid())
+  variantUid String
+  title      String
+  value      String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  variant Variant @relation(fields: [variantUid], references: [uid])
+}
+
+model VariantImage {
+  id         Int      @default(autoincrement())
+  uid        String   @id @unique @default(cuid())
+  variantUid String?
+  url        String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  variants Variant? @relation(fields: [variantUid], references: [uid])
 }
 
 model CompanyUser {
@@ -73,7 +124,7 @@ model CompanyAddress {
   company      Company  @relation(fields: [companyUid], references: [uid])
 }
 
-model CompanyPhones {
+model CompanyPhone {
   id         Int      @default(autoincrement())
   uid        String   @id @unique @default(cuid())
   companyUid String
@@ -83,7 +134,7 @@ model CompanyPhones {
   company    Company  @relation(fields: [companyUid], references: [uid])
 }
 
-model CompanyEmails {
+model CompanyEmail {
   id         Int      @default(autoincrement())
   uid        String   @id @unique @default(cuid())
   companyUid String
@@ -104,7 +155,7 @@ model CompanyCustomer {
   @@id([companyUid, customerUid])
 }
 
-model CustomerEmails {
+model CustomerEmail {
   id         Int      @default(autoincrement())
   uid        String   @id @unique @default(cuid())
   companyUid String
@@ -114,7 +165,7 @@ model CustomerEmails {
   customer   Customer @relation(fields: [companyUid], references: [uid])
 }
 
-model CustomerPhones {
+model CustomerPhone {
   id         Int      @default(autoincrement())
   uid        String   @id @unique @default(cuid())
   companyUid String

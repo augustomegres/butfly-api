@@ -9,6 +9,10 @@ import { CustomerRepository } from "@repositories/Prisma/CustomerRepository";
 
 const prismaClient = new PrismaClient();
 export class PrismaRepositoryFactory implements IRepositoryFactory {
+  createProductRepository() {
+    throw new Error("Method not implemented.");
+  }
+
   createUserRepository(): IUserRepository {
     return new UserRepository(prismaClient);
   }

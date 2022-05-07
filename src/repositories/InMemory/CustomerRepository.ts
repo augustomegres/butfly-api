@@ -7,15 +7,7 @@ export class CustomerRepository implements ICustomerRepository {
     this.customers = customers;
   }
 
-  async create({
-    data,
-    companyUid,
-    userUid,
-  }: {
-    data: Customer;
-    companyUid: string | number;
-    userUid: string | number;
-  }): Promise<Customer> {
+  async create({ data }: { data: Customer }): Promise<Customer> {
     this.customers.push(data);
     return data;
   }

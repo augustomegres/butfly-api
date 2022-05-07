@@ -6,4 +6,5 @@ export interface IRepositoryFactory {
   createUserRepository(): IUserRepository;
   createCompanyRepository(): ICompanyRepository;
   createCustomerRepository(): ICustomerRepository;
+  createProductRepository(): IProductRepository;
 }
