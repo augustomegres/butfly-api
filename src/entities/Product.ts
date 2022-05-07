@@ -32,7 +32,7 @@ export class Product {
   }
 
   validateName(name: string) {
-    if (name.length < 3)
+    if (!name || name?.length < 3)
       throw new AppError("Name must be at least 3 characters");
 
     if (name.length > 50)

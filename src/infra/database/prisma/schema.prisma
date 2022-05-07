@@ -30,6 +30,7 @@ model Company {
   phones          CompanyPhone[]
   companyUsers    CompanyUser[]
   companyCustomer CompanyCustomer[]
+  products        Product[]
 }
 
 model Customer {
@@ -47,54 +48,32 @@ model Customer {
 }
 
 model Product {
-  id                  Int      @default(autoincrement())
-  uid                 String   @id @unique @default(cuid())
-  name                String
-  properties          String?
-  availableProperties String[]
-  description         String?
-  createdAt           DateTime @default(now())
-  updatedAt           DateTime @updatedAt
+  id          Int      @default(autoincrement())
+  uid         String   @id @unique @default(cuid())
+  companyUid  String   @unique
+  name        String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  variant Variant[]
+  variant   Variant[]
+  Companies Company   @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
 }
 
 model Variant {
   id          Int      @default(autoincrement())
   uid         String   @id @unique @default(cuid())
   productUid  String
-  quantity    Int
+  quantity    Float
+  price       Float
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  images          VariantImage[]
-  variantProperty VariantProperty[]
+  images     String[]
+  properties Json[]
 
-  Products Product @relation(fields: [productUid], references: [uid])
-}
-
-model VariantProperty {
-  id         Int      @default(autoincrement())
-  uid        String   @id @unique @default(cuid())
-  variantUid String
-  title      String
-  value      String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  variant Variant @relation(fields: [variantUid], references: [uid])
-}
-
-model VariantImage {
-  id         Int      @default(autoincrement())
-  uid        String   @id @unique @default(cuid())
-  variantUid String?
-  url        String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
-
-  variants Variant? @relation(fields: [variantUid], references: [uid])
+  Products Product @relation(fields: [productUid], references: [uid], onDelete: Cascade)
 }
 
 model CompanyUser {
@@ -102,8 +81,8 @@ model CompanyUser {
   companyUid String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  companies  Company  @relation(fields: [companyUid], references: [uid])
-  users      User     @relation(fields: [userUid], references: [uid])
+  companies  Company  @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
+  users      User     @relation(fields: [userUid], references: [uid], onDelete: Cascade)
 
   @@id([userUid, companyUid])
 }
@@ -121,7 +100,7 @@ model CompanyAddress {
   zipCode      String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  company      Company  @relation(fields: [companyUid], references: [uid])
+  company      Company  @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
 }
 
 model CompanyPhone {
@@ -131,7 +110,7 @@ model CompanyPhone {
   phone      String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  company    Company  @relation(fields: [companyUid], references: [uid])
+  company    Company  @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
 }
 
 model CompanyEmail {
@@ -141,7 +120,7 @@ model CompanyEmail {
   email      String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  company    Company  @relation(fields: [companyUid], references: [uid])
+  company    Company  @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
 }
 
 model CompanyCustomer {
@@ -149,8 +128,8 @@ model CompanyCustomer {
   customerUid String
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  companies   Company  @relation(fields: [companyUid], references: [uid])
-  customers   Customer @relation(fields: [customerUid], references: [uid])
+  companies   Company  @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
+  customers   Customer @relation(fields: [customerUid], references: [uid], onDelete: Cascade)
 
   @@id([companyUid, customerUid])
 }
@@ -162,7 +141,7 @@ model CustomerEmail {
   email      String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  customer   Customer @relation(fields: [companyUid], references: [uid])
+  customer   Customer @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
 }
 
 model CustomerPhone {
@@ -172,7 +151,7 @@ model CustomerPhone {
   phone      String
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
-  customer   Customer @relation(fields: [companyUid], references: [uid])
+  customer   Customer @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
 }
 
 model CustomerAddress {
@@ -188,5 +167,5 @@ model CustomerAddress {
   zipCode      String
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  customer     Customer @relation(fields: [customerUid], references: [uid])
+  customer     Customer @relation(fields: [customerUid], references: [uid], onDelete: Cascade)
 }

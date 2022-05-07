@@ -1,27 +1,27 @@
 export class ProductVariant {
   uid: string;
-  type: string;
   images: string[];
   properties: { [key: string]: string }[];
   price: number;
+  quantity: number;
 
   constructor({
     uid,
-    type,
     images,
     properties,
     price,
+    quantity,
   }: {
     uid: string;
-    type: string;
     images: string[];
     properties: { [key: string]: string }[];
     price: number;
+    quantity: number;
   }) {
     this.uid = uid;
-    this.type = type;
     this.images = images;
     this.properties = properties;
     this.price = price;
+    this.quantity = quantity;
   }
 }

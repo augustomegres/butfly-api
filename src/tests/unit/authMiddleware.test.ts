@@ -23,7 +23,7 @@ describe("AuthMiddleware", () => {
   beforeAll(async () => {
     memoryRepositoryFactory = new MemoryRepositoryFactory();
     createUserUseCase = new CreateUserUseCase(memoryRepositoryFactory);
-    authMiddleware = new AuthMiddleware(memoryRepositoryFactory);
+    authMiddleware = new AuthMiddleware();
     authenticateUserUseCase = new AuthenticateUserUseCase(
       memoryRepositoryFactory
     );

@@ -5,17 +5,18 @@ const factory = new MemoryRepositoryFactory();
 const createProductUseCase = new CreateProductUseCase(factory);
 
 const validProduct = {
+  companyUid: "company-uid",
   name: "Produto",
   description: "test",
 };
 const validVariant = {
-  type: "Produto",
   images: ["https://via.placeholder.com/300.png/09f/fff"],
   properties: [
     { key: "Peso", value: "12Kg" },
     { key: "Dimensões", value: "L12xM2xA4" },
   ],
   price: 1200,
+  quantity: 0,
 };
 describe("CreateProduct", () => {
   it("should be possible to create a product", async () => {
@@ -34,10 +35,10 @@ describe("CreateProduct", () => {
         variants: [
           validVariant,
           {
-            type: "Produto",
             images: ["https://via.placeholder.com/300.png/09f/fff"],
             properties: [{ key: "Dimensões", value: "L12xM2xA4" }],
             price: 100,
+            quantity: 0,
           },
         ],
       })
@@ -91,4 +92,6 @@ describe("CreateProduct", () => {
       })
     ).rejects.toThrow("Price must be greater than 0");
   });
+
+  it("should not be possible to create a product with invalid name", async () => {});
 });
