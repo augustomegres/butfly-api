@@ -26,18 +26,10 @@ export class CreateCustomerUseCase {
   async execute({
     data,
     companyUid,
-    userUid,
   }: {
     data: CreateCustomerData;
     companyUid: string;
-    userUid: string;
   }): Promise<any> {
-    const userCompanies = await this.userRepository.findCompanies(userUid);
-    if (userCompanies.length === 0) throw new AppError("Company was not found");
-
-    const company = userCompanies.find((company) => companyUid === company.uid);
-    if (!company) throw new AppError("Company was not found");
-
     const addresses: Address[] = [];
     data.addresses?.map((address) => {
       addresses.push(
@@ -71,9 +63,8 @@ export class CreateCustomerUseCase {
     });
 
     const customer = await this.customerRepository.create({
-      data: customerEntity,
       companyUid: companyUid,
-      userUid: userUid,
+      data: customerEntity,
     });
 
     return customer;

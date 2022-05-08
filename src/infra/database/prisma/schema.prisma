@@ -19,45 +19,49 @@ model User {
 }
 
 model Company {
-  id              Int               @default(autoincrement())
-  uid             String            @id @unique @default(cuid())
-  name            String
-  cnpj            String?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  addresses       CompanyAddress[]
-  emails          CompanyEmail[]
-  phones          CompanyPhone[]
-  companyUsers    CompanyUser[]
-  companyCustomer CompanyCustomer[]
-  products        Product[]
+  id           Int              @default(autoincrement())
+  uid          String           @id @unique @default(cuid())
+  name         String
+  cnpj         String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  addresses    CompanyAddress[]
+  emails       CompanyEmail[]
+  phones       CompanyPhone[]
+  companyUsers CompanyUser[]
+
+  products  Product[]
+  customers Customer[]
 }
 
 model Customer {
-  id              Int               @default(autoincrement())
-  uid             String            @id @unique @default(cuid())
-  name            String
-  surname         String?
-  observations    String?
-  createdAt       DateTime          @default(now())
-  updatedAt       DateTime          @updatedAt
-  emails          CustomerEmail[]
-  phones          CustomerPhone[]
-  addresses       CustomerAddress[]
-  companyCustomer CompanyCustomer[]
+  id           Int               @default(autoincrement())
+  uid          String            @id @unique @default(cuid())
+  companyUid   String
+  name         String
+  surname      String?
+  observations String?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+  emails       CustomerEmail[]
+  phones       CustomerPhone[]
+  addresses    CustomerAddress[]
+
+  Company Company @relation(fields: [companyUid], references: [uid])
 }
 
 model Product {
   id          Int      @default(autoincrement())
   uid         String   @id @unique @default(cuid())
-  companyUid  String   @unique
+  companyUid  String
   name        String
   description String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  variant   Variant[]
-  Companies Company   @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
+  variant Variant[]
+
+  Company Company @relation(fields: [companyUid], references: [uid])
 }
 
 model Variant {
@@ -121,17 +125,6 @@ model CompanyEmail {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   company    Company  @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
-}
-
-model CompanyCustomer {
-  companyUid  String
-  customerUid String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  companies   Company  @relation(fields: [companyUid], references: [uid], onDelete: Cascade)
-  customers   Customer @relation(fields: [customerUid], references: [uid], onDelete: Cascade)
-
-  @@id([companyUid, customerUid])
 }
 
 model CustomerEmail {

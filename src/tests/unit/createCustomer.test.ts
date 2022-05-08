@@ -48,7 +48,6 @@ describe("CreateCustomer", () => {
       createCustomerUseCase.execute({
         data: validCustomer,
         companyUid: company.uid,
-        userUid: user.uid,
       })
     ).resolves.toBeDefined();
   });
@@ -61,7 +60,6 @@ describe("CreateCustomer", () => {
           addresses: undefined,
         },
         companyUid: company.uid,
-        userUid: user.uid,
       })
     ).resolves.toBeDefined();
   });
@@ -74,7 +72,6 @@ describe("CreateCustomer", () => {
           phones: undefined,
         },
         companyUid: company.uid,
-        userUid: user.uid,
       })
     ).resolves.toBeDefined();
   });
@@ -87,7 +84,6 @@ describe("CreateCustomer", () => {
           emails: undefined,
         },
         companyUid: company.uid,
-        userUid: user.uid,
       })
     ).resolves.toBeDefined();
   });
@@ -99,7 +95,6 @@ describe("CreateCustomer", () => {
           name: "",
         },
         companyUid: company.uid,
-        userUid: user.uid,
       })
     ).rejects.toThrow();
   });

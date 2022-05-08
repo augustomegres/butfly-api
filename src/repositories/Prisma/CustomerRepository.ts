@@ -18,15 +18,14 @@ export class CustomerRepository implements ICustomerRepository {
   }): Promise<Customer> {
     await this.database.customer.create({
       data: {
-        name: data.uid,
+        uid: data.uid,
+        companyUid: companyUid,
+        name: data.name,
         surname: data.surname,
         observations: data.observations,
         addresses: { create: [...data.addresses] },
         emails: { create: [...data.emails] },
         phones: { create: [...data.phones] },
-        companyCustomer: {
-          create: { companies: { connect: { uid: companyUid } } },
-        },
       },
     });
     return data;
