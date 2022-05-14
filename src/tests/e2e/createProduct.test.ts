@@ -39,13 +39,13 @@ describe("CreateProduct", () => {
   });
 
   it("should create a product", async () => {
-    const companies = await supertest(app).post("/company").set(token).send({
+    const companies = await supertest(app).post("/companies").set(token).send({
       name: "Test Company",
       cnpj: "16.508.522/0001-39",
     });
 
     const { body } = await supertest(app)
-      .post(`/company/${companies.body.uid}/products`)
+      .post(`/companies/${companies.body.uid}/products`)
       .set(token)
       .send(product);
 

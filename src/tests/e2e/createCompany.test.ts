@@ -28,7 +28,7 @@ describe("CreateCompany", () => {
     token.authorization = `Bearer ${authenticate.body.token}`;
   });
   it("POST 201: Should create a new company", async () => {
-    const companies = await supertest(app).post("/company").set(token).send({
+    const companies = await supertest(app).post("/companies").set(token).send({
       name: "Test Company",
       cnpj: "16.508.522/0001-39",
     });
@@ -38,7 +38,7 @@ describe("CreateCompany", () => {
 
   it("POST 201: Should create a new company with address", async () => {
     const companies = await supertest(app)
-      .post("/company")
+      .post("/companies")
       .set(token)
       .send({
         name: "Test Company",
@@ -50,7 +50,7 @@ describe("CreateCompany", () => {
 
   it("POST 201: Should create a new company with emails", async () => {
     const companies = await supertest(app)
-      .post("/company")
+      .post("/companies")
       .set(token)
       .send({
         name: "Test Company",
@@ -62,7 +62,7 @@ describe("CreateCompany", () => {
 
   it("POST 201: Should create a new company with phone", async () => {
     const companies = await supertest(app)
-      .post("/company")
+      .post("/companies")
       .set(token)
       .send({
         name: "Test Company",
