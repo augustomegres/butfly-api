@@ -1,5 +1,5 @@
-import { AuthMiddleware } from "@http/middlewares/authMiddleware";
-import { companyMiddleware } from "@infra/main";
+import { CreateCompanyUseCase } from "@app/useCases/CreateCompany";
+import { CompanyMiddleware } from "@http/middlewares/companyMiddleware";
 import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser";
 import { CreateUserUseCase } from "@src/app/useCases/CreateUser";
 import { MemoryRepositoryFactory } from "@src/factories/repositories/MemoryRepositoryFactory";
@@ -13,82 +13,83 @@ interface RequestProps extends Request {
 const mockResponse: Partial<Response> = { json: jest.fn() };
 let nextFunction: NextFunction = jest.fn();
 
+let companyMiddleware: CompanyMiddleware;
 let memoryRepositoryFactory: MemoryRepositoryFactory;
 let createUserUseCase: CreateUserUseCase;
+let createCompanyUseCase: CreateCompanyUseCase;
 let authenticateUserUseCase: AuthenticateUserUseCase;
-let authMiddleware: AuthMiddleware;
 
+let user: any;
+let company: any;
 let token: string;
 
 describe("AuthMiddleware", () => {
   beforeAll(async () => {
     memoryRepositoryFactory = new MemoryRepositoryFactory();
+    companyMiddleware = new CompanyMiddleware(memoryRepositoryFactory);
     createUserUseCase = new CreateUserUseCase(memoryRepositoryFactory);
-    authMiddleware = new AuthMiddleware();
+    createCompanyUseCase = new CreateCompanyUseCase(memoryRepositoryFactory);
     authenticateUserUseCase = new AuthenticateUserUseCase(
       memoryRepositoryFactory
     );
 
-    await createUserUseCase.execute(validUser);
+    user = await createUserUseCase.execute(validUser);
     token = await authenticateUserUseCase
       .execute({
         email: validUser.email,
         password: validUser.password,
       })
       .then((data) => data.token);
+
+    company = await createCompanyUseCase.execute(
+      {
+        name: "test",
+      },
+      memoryRepositoryFactory.memoryRepository.users[0].uid
+    );
   });
 
-  it("should throw an error if auth header is invalid", async () => {
+  it("should throw an error if company was not found", async () => {
     await expect(() =>
-      authMiddleware.handle(
-        { headers: {}, params: {} } as RequestProps,
-        mockResponse as Response,
-        nextFunction
-      )
-    ).rejects.toThrow("Missing authorization header");
-
-    expect(nextFunction).toBeCalledTimes(0);
-  });
-
-  it("should throw an error if token is invalid", async () => {
-    await expect(() =>
-      authMiddleware.handle(
+      companyMiddleware.handle(
         {
-          headers: { authorization: `Bearer invalid` },
-          params: {},
+          headers: {},
+          params: { companyUid: "any" },
+          user: { uid: user.uid },
         } as RequestProps,
         mockResponse as Response,
         nextFunction
       )
-    ).rejects.toThrow("Invalid token");
+    ).rejects.toThrow("User does not have access to this company");
 
     expect(nextFunction).toBeCalledTimes(0);
   });
-
-  it("should throw call next function when token is valid", async () => {
-    await authMiddleware.handle(
-      {
-        headers: { authorization: `Bearer ${token}` },
-        params: {},
-      } as RequestProps,
-      mockResponse as Response,
-      nextFunction
-    );
-
-    expect(nextFunction).toBeCalledTimes(1);
-  });
-
-  it("should throw an error if user company is not valid", async () => {
-    await expect(
+  it("should throw an error if user was not found", async () => {
+    await expect(() =>
       companyMiddleware.handle(
         {
-          headers: { authorization: `Bearer ${token}` },
-          params: { companyUid: "invalid" },
+          headers: {},
+          params: { companyUid: company.uid },
           user: { uid: "any" },
         } as RequestProps,
         mockResponse as Response,
         nextFunction
       )
     ).rejects.toThrow("User does not have access to this company");
+
+    expect(nextFunction).toBeCalledTimes(0);
+  });
+  it("should pass if company was found and user have access to this company", async () => {
+    await companyMiddleware.handle(
+      {
+        headers: {},
+        params: { companyUid: company.uid },
+        user: { uid: user.uid },
+      } as RequestProps,
+      mockResponse as Response,
+      nextFunction
+    );
+
+    expect(nextFunction).toBeCalledTimes(1);
   });
 });

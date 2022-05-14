@@ -61,7 +61,7 @@ export class Product {
     });
     Object.keys(keyOccurrences).forEach((key) => {
       const totalVariants = variants.length;
-      variants.forEach((variant) => {
+      variants.forEach(() => {
         if (totalVariants !== keyOccurrences[key]) {
           throw new AppError("Variants must have the same properties");
         }

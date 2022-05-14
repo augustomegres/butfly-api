@@ -43,19 +43,6 @@ describe("Create Customer", () => {
 
   it("should throw an error if provided company is not from user", async () => {
     const response = await supertest(app)
-      .post(`/company/anyUid/customers`)
-      .set(token)
-      .send({
-        name: "Any Customer",
-        surname: "Test",
-        observations: "Test",
-      });
-
-    expect(response.status).toBe(400);
-  });
-
-  it("should throw an error if provided company is not from user", async () => {
-    const response = await supertest(app)
       .post(`/company/${companyUid}/customers`)
       .set(token2)
       .send({
@@ -64,6 +51,9 @@ describe("Create Customer", () => {
         observations: "Test",
       });
 
-    expect(response.status).toBe(400);
+    expect(response.body.message).toBe(
+      "User does not have access to this company"
+    );
+    expect(response.status).toBe(401);
   });
 });

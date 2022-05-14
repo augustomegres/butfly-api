@@ -1,8 +1,7 @@
-import { User } from "@entities/User";
-import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
-import { PrismaClient } from "@prisma/client";
 import { Company } from "@entities/Company";
-import { AppError } from "@shared/errors/AppError";
+import { User } from "@entities/User";
+import { PrismaClient } from "@prisma/client";
+import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
 
 export class UserRepository implements IUserRepository {
   database: PrismaClient;

@@ -1,6 +1,6 @@
 import { CreateUserUseCase } from "@app/useCases/CreateUser";
 import { MemoryRepositoryFactory } from "@factories/repositories/MemoryRepositoryFactory";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const validUser = {
   name: "Valid Name",

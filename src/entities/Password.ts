@@ -1,5 +1,5 @@
 import { AppError } from "@shared/errors/AppError";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 export class Password {
   value: string;
 

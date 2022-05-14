@@ -2,7 +2,7 @@ import { IRepositoryFactory } from "@src/factories/interfaces/IRepositoryFactory
 import { IUserRepository } from "@src/repositories/Interfaces/IUserRepository";
 import { AppError } from "@src/shared/errors/AppError";
 import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 const secret = process.env.JWT_SECRET as string;
 
