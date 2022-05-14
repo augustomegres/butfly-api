@@ -13,7 +13,7 @@ describe("Create Customer", () => {
       password: "12345678",
     });
     token.authorization = `Bearer ${authenticate.body.token}`;
-    const company = await supertest(app).post("/company").set(token).send({
+    const company = await supertest(app).post("/companies").set(token).send({
       name: "Any Company",
     });
     companyUid = company.body.uid;
@@ -30,7 +30,7 @@ describe("Create Customer", () => {
   });
   it("should be possible to create a customer", async () => {
     const response = await supertest(app)
-      .post(`/company/${companyUid}/customers`)
+      .post(`/companies/${companyUid}/customers`)
       .set(token)
       .send({
         name: "Any Customer",
@@ -43,7 +43,7 @@ describe("Create Customer", () => {
 
   it("should throw an error if provided company is not from user", async () => {
     const response = await supertest(app)
-      .post(`/company/${companyUid}/customers`)
+      .post(`/companies/${companyUid}/customers`)
       .set(token2)
       .send({
         name: "Any Customer",
