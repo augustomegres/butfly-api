@@ -1,12 +1,9 @@
 import { CreateCompanyUseCase } from "@app/useCases/CreateCompany";
 import { CreateUserUseCase } from "@app/useCases/CreateUser";
 import { GetUserCompanies } from "@app/useCases/GetUserCompanies";
-import { IRepositoryFactory } from "@factories/interfaces/IRepositoryFactory";
 import { MemoryRepositoryFactory } from "@factories/repositories/MemoryRepositoryFactory";
-import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
 
 let repositoryFactory: MemoryRepositoryFactory;
-let userRepository: IUserRepository;
 
 let createUserUseCase: CreateUserUseCase;
 let createCompanyUseCase: CreateCompanyUseCase;
@@ -17,7 +14,6 @@ let user: any;
 describe("GetUserCompanies", () => {
   beforeEach(async () => {
     repositoryFactory = new MemoryRepositoryFactory();
-    userRepository = repositoryFactory.createUserRepository();
     createUserUseCase = new CreateUserUseCase(repositoryFactory);
     createCompanyUseCase = new CreateCompanyUseCase(repositoryFactory);
     getUserCompanies = new GetUserCompanies(repositoryFactory);
@@ -29,7 +25,7 @@ describe("GetUserCompanies", () => {
     });
   });
 
-  test("should be possible to get user companies", async () => {
+  it("should be possible to get user companies", async () => {
     const company = await createCompanyUseCase.execute(
       { name: "Valid Name" },
       user.uid

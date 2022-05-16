@@ -1,5 +1,5 @@
 import { AuthMiddleware } from "@http/middlewares/authMiddleware";
-import { companyMiddleware } from "@infra/main";
+import { CompanyMiddleware } from "@http/middlewares/companyMiddleware";
 import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser";
 import { CreateUserUseCase } from "@src/app/useCases/CreateUser";
 import { MemoryRepositoryFactory } from "@src/factories/repositories/MemoryRepositoryFactory";
@@ -10,13 +10,14 @@ interface RequestProps extends Request {
   headers: { authorization: string };
   params: { companyUid?: string };
 }
-const mockResponse: Partial<Response> = { json: jest.fn() };
-let nextFunction: NextFunction = jest.fn();
+const mockResponse: Partial<Response> = { json: vi.fn() };
+let nextFunction: NextFunction = vi.fn() as any;
 
 let memoryRepositoryFactory: MemoryRepositoryFactory;
 let createUserUseCase: CreateUserUseCase;
 let authenticateUserUseCase: AuthenticateUserUseCase;
 let authMiddleware: AuthMiddleware;
+let companyMiddleware: CompanyMiddleware;
 
 let token: string;
 
@@ -25,6 +26,7 @@ describe("AuthMiddleware", () => {
     memoryRepositoryFactory = new MemoryRepositoryFactory();
     createUserUseCase = new CreateUserUseCase(memoryRepositoryFactory);
     authMiddleware = new AuthMiddleware();
+    companyMiddleware = new CompanyMiddleware(memoryRepositoryFactory);
     authenticateUserUseCase = new AuthenticateUserUseCase(
       memoryRepositoryFactory
     );

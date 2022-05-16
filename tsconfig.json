@@ -10,6 +10,7 @@
     "rootDir": ".",
     "outDir": "./dist",
     "baseUrl": ".",
+    "types": ["vitest/globals"],
 
     "paths": {
       "@app/*": ["./src/app/*"],

@@ -19,6 +19,7 @@ describe("AuthenticateUser", () => {
   beforeAll(async () => {
     await createUserUseCase.execute(validUser);
   });
+
   it("should authenticate an user", async () => {
     const { token } = await authenticateUserUseCase.execute({
       email: "any@mail.com",

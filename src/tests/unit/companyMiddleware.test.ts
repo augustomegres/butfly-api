@@ -10,8 +10,8 @@ interface RequestProps extends Request {
   headers: { authorization: string };
   params: { companyUid?: string };
 }
-const mockResponse: Partial<Response> = { json: jest.fn() };
-let nextFunction: NextFunction = jest.fn();
+const mockResponse: Partial<Response> = { json: vi.fn() };
+let nextFunction: NextFunction = vi.fn() as any;
 
 let companyMiddleware: CompanyMiddleware;
 let memoryRepositoryFactory: MemoryRepositoryFactory;
