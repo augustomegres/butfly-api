@@ -22,14 +22,14 @@ async function teardown() {
   await client.end();
 }
 
-beforeAll(async () => {
-  if (process.env.MODE !== "unit") {
+beforeAll(async (context) => {
+  if (context?.filepath?.includes("tests/e2e")) {
     await setup();
   }
 });
 
-afterAll(async () => {
-  if (process.env.MODE !== "unit") {
+afterAll(async (context) => {
+  if (context?.filepath?.includes("tests/e2e")) {
     await teardown();
   }
 });

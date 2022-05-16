@@ -6,8 +6,8 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register src/server.ts",
     "test": "vitest",
-    "test:unit": "vitest src/tests/unit --mode=unit",
-    "test:e2e": "vitest src/tests/e2e --mode=e2e"
+    "test:unit": "vitest src/tests/unit",
+    "test:e2e": "vitest src/tests/e2e"
   },
   "prisma": {
     "schema": "src/infra/database/prisma/schema.prisma"
