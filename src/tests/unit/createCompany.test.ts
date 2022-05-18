@@ -138,25 +138,6 @@ describe("CreateCompany", () => {
     );
     await expect(company).rejects.toThrow("Street is required");
   });
-  it("should throw an error if address street was not provided", async () => {
-    const company = createCompanyUseCase.execute(
-      {
-        ...data,
-        addresses: [
-          {
-            city: "Any city",
-            neighborhood: "Any neighborhood",
-            number: "12",
-            state: "MG",
-            street: "",
-            zipCode: "36773-000",
-          },
-        ],
-      },
-      1
-    );
-    await expect(company).rejects.toThrow("Street is required");
-  });
   it("should throw an error if address zipCode was not provided", async () => {
     const company = createCompanyUseCase.execute(
       {

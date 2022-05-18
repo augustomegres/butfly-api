@@ -8,6 +8,14 @@ export class UserRepository implements IUserRepository {
   constructor(prismaDatabase: PrismaClient) {
     this.database = prismaDatabase;
   }
+
+  async findUser(uid: string): Promise<User | null> {
+    const user = await this.database.user.findUnique({
+      where: { uid },
+      include: { companyUser: true },
+    });
+    return user;
+  }
   async findCompanies(userUid: string): Promise<Company[]> {
     const user = await this.database.user.findUnique({
       where: { uid: userUid },
