@@ -2,11 +2,13 @@ import { CreateCustomerUseCase } from "@app/useCases/CreateCustomer";
 import { CreateProductUseCase } from "@app/useCases/CreateProduct";
 import { CreateUserUseCase } from "@app/useCases/CreateUser";
 import { GetUserCompanies } from "@app/useCases/GetUserCompanies";
+import { MeUseCase } from "@app/useCases/Me";
 import { PrismaRepositoryFactory } from "@factories/repositories/PrismaRepositoryFactory";
 import { CreateCustomerController } from "@http/controllers/CreateCustomerController";
 import { CreateProductController } from "@http/controllers/CreateProductController";
 import { CreateUserController } from "@http/controllers/CreateUserController";
 import { GetUserCompaniesController } from "@http/controllers/GetUserCompaniesController";
+import { MeController } from "@http/controllers/MeController";
 import { AuthMiddleware } from "@http/middlewares/authMiddleware";
 import { CompanyMiddleware } from "@http/middlewares/companyMiddleware";
 import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser";
@@ -26,6 +28,9 @@ const authenticateUserUseCase = new AuthenticateUserUseCase(repositoryFactory);
 const authenticateUserController = new AuthenticateUserController(
   authenticateUserUseCase
 );
+
+const meUseCase = new MeUseCase(repositoryFactory);
+const meController = new MeController(meUseCase);
 
 const getUserCompanies = new GetUserCompanies(repositoryFactory);
 const getUserCompaniesController = new GetUserCompaniesController(
@@ -49,6 +54,7 @@ const createProductController = new CreateProductController(
 
 export {
   authMiddleware,
+  meController,
   companyMiddleware,
   createUserController,
   authenticateUserController,
