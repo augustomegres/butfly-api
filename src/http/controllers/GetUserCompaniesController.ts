@@ -6,7 +6,7 @@ export class GetUserCompaniesController {
 
   async handle(req: Request, res: Response) {
     const { uid } = req.user;
-    const { user, companies } = await this.getUserCompaniesUseCase.execute(uid);
-    res.status(200).send({ user, companies });
+    const { companies } = await this.getUserCompaniesUseCase.execute(uid);
+    res.status(200).send({ companies });
   }
 }
