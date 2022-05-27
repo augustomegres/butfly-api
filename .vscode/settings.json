@@ -1,3 +1,7 @@
 {
+<<<<<<< Updated upstream
   "cSpell.words": ["butfly", "cnpj", "datasources", "vitest"]
+=======
+  "cSpell.words": ["cnpj", "vitest"]
+>>>>>>> Stashed changes
 }

@@ -31,7 +31,10 @@ describe("GetUserCompanies", () => {
     );
   });
 
+<<<<<<< Updated upstream
   it("should be possible to get user companies", async () => {
+=======
+>>>>>>> Stashed changes
     let { companies } = await getUserCompanies.execute(user.uid);
 
     expect(companies).toBeDefined();
@@ -41,11 +44,14 @@ describe("GetUserCompanies", () => {
     await createCompanyUseCase.execute({ name: "Alt Valid Name" }, user.uid);
     const altRequest = await getUserCompanies.execute(user.uid);
     expect(altRequest.companies).toHaveLength(2);
+<<<<<<< Updated upstream
   });
 
   it("should not be possible to get user companies with an invalid user id", async () => {
     await expect(getUserCompanies.execute("invalid")).rejects.toThrow(
       "User not found"
     );
+=======
+>>>>>>> Stashed changes
   });
 });
