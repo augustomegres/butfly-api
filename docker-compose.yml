@@ -1,0 +1,23 @@
+version: "3.9"
+name: "test"
+services:
+  butfly-database:
+    image: postgres:latest
+    container_name: butfly-database
+    ports:
+      - 5400:5432
+    environment:
+      - POSTGRES_PASSWORD=Butfly123
+      - POSTGRES_USER=user
+      - POSTGRES_DB=butfly
+
+  butfly-testing:
+    image: postgres:latest
+    container_name: butfly-testing
+    restart: always
+    ports:
+      - 5401:5432
+    environment:
+      - POSTGRES_PASSWORD=Butfly123
+      - POSTGRES_USER=user
+      - POSTGRES_DB=testing

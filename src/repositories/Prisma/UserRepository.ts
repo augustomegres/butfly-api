@@ -16,6 +16,7 @@ export class UserRepository implements IUserRepository {
     });
     return user;
   }
+
   async findCompanies(userUid: string): Promise<Company[]> {
     const user = await this.database.user.findUnique({
       where: { uid: userUid },
