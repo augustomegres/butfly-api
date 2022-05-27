@@ -12,10 +12,6 @@ export class UserRepository implements IUserRepository {
   async findUser(uid: string): Promise<User | null> {
     const user = await this.database.user.findUnique({
       where: { uid },
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
       include: { companyUser: true },
     });
     return user;
