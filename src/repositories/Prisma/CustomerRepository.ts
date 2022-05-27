@@ -8,6 +8,34 @@ export class CustomerRepository implements ICustomerRepository {
     this.database = prismaDatabase;
   }
 
+  async list({
+    page,
+    perPage = 25,
+  }: {
+    page: number;
+    perPage: number;
+  }): Promise<{
+    rows: Customer[];
+    page: number;
+    totalPages: number;
+    count: number;
+  }> {
+    await this.database.customer.findMany({
+      where: {
+        companyUid: {},
+      },
+      skip: page * perPage,
+      take: perPage,
+    });
+
+    return {
+      rows: [],
+      page: 1,
+      totalPages: 1,
+      count: 0,
+    };
+  }
+
   async create({
     data,
     companyUid,

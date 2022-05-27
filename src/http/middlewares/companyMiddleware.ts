@@ -17,10 +17,7 @@ export class CompanyMiddleware {
     const { companyUid } = request.params;
 
     if (companyUid) {
-      const companies = await this.userRepository.findCompanies(
-        request.user.uid
-      );
-
+      const companies = await this.userRepository.findCompanies(request.user.uid);
       if (!companies.find((company) => company.uid === companyUid))
         throw new AppError("User does not have access to this company", 401);
     }

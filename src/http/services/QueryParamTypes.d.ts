@@ -1,0 +1,9 @@
+export type QueryParamOperators =
+  | ">="
+  | "<="
+  | "!="
+  | "!~"
+  | ">"
+  | "<"
+  | "~"
+  | "=";
