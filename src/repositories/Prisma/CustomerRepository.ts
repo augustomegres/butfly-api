@@ -25,7 +25,7 @@ export class CustomerRepository implements ICustomerRepository {
     sortBy?: { [field: string]: 'asc' | 'desc' };
     filter?: [string, QueryParamOperators, string][];
     include?: 'emails' | 'phones' | 'addresses'[];
-  }): Promise<{ rows: Customer[]; page: number; totalPages: number }> {
+  }): Promise<{ rows: Customer[]; page: number; totalPages: number, count: number }> {
     const prismaParams = prismaParamParser(filter)
     const prismaIncludes = includeParamParser(include as string[])
     const customerTableInfo = await this.database.customer.aggregate({
@@ -43,6 +43,7 @@ export class CustomerRepository implements ICustomerRepository {
     return {
       rows: customers as any,
       page: page,
+      count: customerTableInfo._count,
       totalPages: Math.ceil(customerTableInfo._count / perPage)
     };
   }

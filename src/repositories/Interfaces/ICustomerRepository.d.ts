@@ -1,6 +1,6 @@
 import { Address } from "@src/entities/Address";
 
-type ListCustomers = { rows: Customer[]; page: number; totalPages: number }
+type ListCustomers = { rows: Customer[]; page: number; totalPages: number, count: number }
 
 
 export interface ICustomerRepository {

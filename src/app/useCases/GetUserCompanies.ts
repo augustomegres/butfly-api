@@ -19,8 +19,6 @@ export class GetUserCompanies {
 
     const companies = await this.userRepository.findCompanies(userUid);
 
-    return {
-      companies,
-    };
+    return { companies };
   }
 }

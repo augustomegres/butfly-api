@@ -19,10 +19,12 @@ export class CustomerRepository implements ICustomerRepository {
     sortBy?: { [field: string]: "asc" | "desc"; };
     page: number;
     perPage?: number;
+    count: number;
   }): Promise<ListCustomers> {
     return {
       rows: this.customers,
       page: page,
+      count: this.customers.length,
       totalPages: perPage ? Math.ceil(this.customers.length / perPage) : 1
     };
   }
