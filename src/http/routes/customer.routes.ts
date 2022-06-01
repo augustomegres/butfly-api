@@ -1,7 +1,13 @@
-import { companyMiddleware, createCustomerController } from "@infra/main";
+import { companyMiddleware, createCustomerController, getCustomersController } from "@infra/main";
 import { Router } from "express";
 
 const customer = Router();
+
+customer.get(
+  "/companies/:companyUid/customers",
+  async (req, res, next) => await companyMiddleware.handle(req, res, next),
+  async (req, res) => await getCustomersController.handle(req, res)
+)
 
 customer.post(
   "/companies/:companyUid/customers",

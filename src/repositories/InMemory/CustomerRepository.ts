@@ -1,5 +1,6 @@
 import { Customer } from "@src/entities/Customer";
-import { ICustomerRepository } from "@repositories/Interfaces/ICustomerRepository";
+import { ICustomerRepository, ListCustomers } from "@repositories/Interfaces/ICustomerRepository";
+import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 
 export class CustomerRepository implements ICustomerRepository {
   customers: Customer[];
@@ -7,17 +8,22 @@ export class CustomerRepository implements ICustomerRepository {
     this.customers = customers;
   }
 
-  async list({}: {}): Promise<{
-    rows: Customer[];
+
+  async list({
+    filter,
+    sortBy,
+    page,
+    perPage
+  }: {
+    filter?: [string, QueryParamOperators, string][];
+    sortBy?: { [field: string]: "asc" | "desc"; };
     page: number;
-    totalPages: number;
-    count: number;
-  }> {
+    perPage?: number;
+  }): Promise<ListCustomers> {
     return {
       rows: this.customers,
-      page: 1,
-      totalPages: 1,
-      count: this.customers.length,
+      page: page,
+      totalPages: perPage ? Math.ceil(this.customers.length / perPage) : 1
     };
   }
 

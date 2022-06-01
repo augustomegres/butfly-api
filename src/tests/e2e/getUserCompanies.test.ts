@@ -3,8 +3,8 @@ import { app } from "@infra/app";
 import { createAndAuthenticateUser } from "../mocks/users";
 
 const api = supertest(app);
-let userToken: { authorization: string };
-let alternativeUserToken: { authorization: string };
+let userToken: { Authorization: string };
+let alternativeUserToken: { Authorization: string };
 describe("GetUserCompanies", () => {
   beforeAll(async () => {
     userToken = await createAndAuthenticateUser(api, {

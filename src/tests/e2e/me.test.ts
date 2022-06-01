@@ -3,12 +3,12 @@ import supertest from "supertest";
 import { createAndAuthenticateUser } from "../mocks/users";
 
 const butflyApi = supertest(app);
-let token: { authorization: string };
-let alternativeToken: { authorization: string };
+let userToken: { Authorization: string }
+let alternativeToken: { Authorization: string }
 
 describe("Me", () => {
   beforeAll(async () => {
-    token = await createAndAuthenticateUser(butflyApi, {
+    userToken = await createAndAuthenticateUser(butflyApi, {
       name: "John Doe",
       email: "any@mail.com",
       password: "12345678",
@@ -19,6 +19,7 @@ describe("Me", () => {
       email: "any2@mail.com",
       password: "12345678",
     });
+
     await butflyApi
       .post("/companies")
       .send({ name: "company" })
@@ -26,7 +27,7 @@ describe("Me", () => {
   });
 
   it("should return logged user", async () => {
-    const response = await butflyApi.get("/me").set(token);
+    const response = await butflyApi.get("/me").set(userToken);
 
     expect(response.status).toBe(200);
     expect(response.body.user.name).toBe("John Doe");

@@ -12,7 +12,7 @@ export class GetUserCompanies {
 
   async execute(
     userUid: string
-  ): Promise<{ user: User; companies: Company[] }> {
+  ): Promise<{ companies: Company[] }> {
     const user = await this.userRepository.findUser(userUid);
     if (!user) throw new AppError("User not found", 404);
     delete user.password;
@@ -20,7 +20,6 @@ export class GetUserCompanies {
     const companies = await this.userRepository.findCompanies(userUid);
 
     return {
-      user,
       companies,
     };
   }

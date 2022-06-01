@@ -12,5 +12,7 @@ export async function createAndAuthenticateUser(
 ) {
   await api.post("/signup").send({ name, email, password });
   const response = await api.post("/signin").send({ email, password });
-  return { authorization: `Bearer ${response.body.token}` };
-}
+  return { Authorization: `Bearer ${response.body.token}` }
+};
+
+

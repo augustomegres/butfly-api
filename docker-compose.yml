@@ -1,5 +1,5 @@
 version: "3.9"
-name: "test"
+name: "butfly"
 services:
   butfly-database:
     image: postgres:latest

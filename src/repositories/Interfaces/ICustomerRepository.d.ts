@@ -1,18 +1,16 @@
 import { Address } from "@src/entities/Address";
 
+type ListCustomers = { rows: Customer[]; page: number; totalPages: number }
+
+
 export interface ICustomerRepository {
-  list({
-    page = 1,
-    perPage = 15,
-  }: {
+  list({ filter, sortBy, page = 1, perPage = 25, }: {
+    filter?: [string, QueryParamOperators, string][];
+    sortBy?: { [field: string]: 'asc' | 'desc' };
+    include?: 'emails' | 'phones' | 'addresses'[];
     page: number;
     perPage?: number;
-  }): Promise<{
-    rows: Customer[];
-    page: number;
-    totalPages: number;
-    count: number;
-  }>;
+  }): Promise<ListCustomers>;
   create({
     data,
     companyUid,
