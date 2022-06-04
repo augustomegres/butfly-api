@@ -4,6 +4,7 @@ import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 import { Customer } from "@src/entities/Customer";
 import { includeParamParser } from "./services/IncludeParamsParser";
 import { prismaParamParser } from "./services/QueryParamsParser";
+import { searchParamParser } from "./services/SearchParamsParser";
 
 
 export class CustomerRepository implements ICustomerRepository {
@@ -18,22 +19,25 @@ export class CustomerRepository implements ICustomerRepository {
     perPage = 25,
     filter = [],
     sortBy,
-    include = []
+    include = [],
+    search
   }: {
     page?: number;
     perPage?: number;
     sortBy?: { [field: string]: 'asc' | 'desc' };
     filter?: [string, QueryParamOperators, string][];
     include?: 'emails' | 'phones' | 'addresses'[];
+    search?: string
   }): Promise<{ rows: Customer[]; page: number; totalPages: number, count: number }> {
     const prismaParams = prismaParamParser(filter)
     const prismaIncludes = includeParamParser(include as string[])
+    const searchParams = searchParamParser(search, ['name', 'surname', 'observations'])
     const customerTableInfo = await this.database.customer.aggregate({
       _count: true,
-      where: prismaParams
+      where: { ...prismaParams, ...searchParams }
     })
     const customers = await this.database.customer.findMany({
-      where: prismaParams as any,
+      where: { ...prismaParams, ...searchParams },
       orderBy: sortBy,
       skip: (page - 1) * perPage,
       take: perPage,
@@ -41,7 +45,7 @@ export class CustomerRepository implements ICustomerRepository {
     })
 
     return {
-      rows: customers as any,
+      rows: customers as any[],
       page: page,
       count: customerTableInfo._count,
       totalPages: Math.ceil(customerTableInfo._count / perPage)

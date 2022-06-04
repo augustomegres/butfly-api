@@ -10,6 +10,7 @@ export interface ICustomerRepository {
     include?: 'emails' | 'phones' | 'addresses'[];
     page: number;
     perPage?: number;
+    search?: string
   }): Promise<ListCustomers>;
   create({
     data,

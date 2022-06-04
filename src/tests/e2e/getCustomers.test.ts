@@ -35,4 +35,15 @@ describe('GetCustomers', () => {
     expect(request.body.page).toBe(1)
     expect(request.body.totalPages).toBe(1)
   })
+
+  it('Should return an array with customers using search param', async () => {
+    await butflyApi.post(`/companies/${companyUid}/customers`).set(userToken).send({ name: 'Matheus Gomes' })
+    await butflyApi.post(`/companies/${companyUid}/customers`).set(userToken).send({ name: 'João Silva', surname: "Gomes" })
+    await butflyApi.post(`/companies/${companyUid}/customers`).set(userToken).send({ name: 'Flaviana Silva' })
+
+    const request = await butflyApi.get(`/companies/${companyUid}/customers?search=Gomes`).set(userToken)
+    expect(request.status).toBe(200)
+    expect(request.body.rows.length).toBe(2)
+    expect(request.body.count).toBe(2)
+  })
 })

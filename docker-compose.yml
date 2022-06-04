@@ -4,6 +4,7 @@ services:
   butfly-database:
     image: postgres:latest
     container_name: butfly-database
+    restart: unless-stopped
     ports:
       - 5400:5432
     environment:
@@ -14,7 +15,7 @@ services:
   butfly-testing:
     image: postgres:latest
     container_name: butfly-testing
-    restart: always
+    restart: unless-stopped
     ports:
       - 5401:5432
     environment:

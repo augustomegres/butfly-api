@@ -12,7 +12,7 @@ export class GetCustomersController {
     const sortParamParser = new SortParam()
     const includeParamParser = new IncludeParam()
 
-    const { page = 1, perPage = 25, query, include: includeParam, sortBy } = req.query
+    const { page = 1, perPage = 25, query, include: includeParam, sortBy, search } = req.query
 
     const params = queryParamParser.handle(query as string, ["name", "surname"])
     const sort = sortParamParser.handle(sortBy as string, ["name", "surname"])
@@ -23,7 +23,8 @@ export class GetCustomersController {
       perPage: Number(perPage),
       include,
       filter: params,
-      sortBy: sort
+      sortBy: sort,
+      search: search as string
     })
     return res.status(200).json(customers)
   }

@@ -7,14 +7,15 @@ export class GetCustomersUseCase {
   constructor(repositoryFactory: IRepositoryFactory) {
     this.customerRepository = repositoryFactory.createCustomerRepository()
   }
-  async execute({ sortBy, filter, include, page, perPage }: {
+  async execute({ sortBy, filter, include, page, perPage, search }: {
     page: number
     perPage: number
     sortBy?: { [field: string]: 'asc' | 'desc' }
     filter?: [string, QueryParamOperators, string][]
     include?: 'emails' | 'phones' | 'addresses'[]
+    search?: string
   }) {
-    const customers = await this.customerRepository.list({ page, perPage, include, filter, sortBy });
+    const customers = await this.customerRepository.list({ page, perPage, include, filter, sortBy, search });
     return customers
   }
 }
