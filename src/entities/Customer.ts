@@ -6,6 +6,7 @@ import { Phone } from "./Phone";
 
 export class Customer {
   uid: string;
+  companyUid: string;
   name: string;
   surname?: string;
   observations?: string;
@@ -15,6 +16,7 @@ export class Customer {
 
   constructor({
     uid,
+    companyUid,
     name,
     surname,
     observations,
@@ -23,6 +25,7 @@ export class Customer {
     phones = [],
   }: {
     uid: string;
+    companyUid: string;
     name: string;
     surname?: string;
     observations?: string;
@@ -36,6 +39,7 @@ export class Customer {
     emails?.map((email) => (email.email = new Email(email.email).value));
 
     this.uid = uid;
+    this.companyUid = companyUid;
     this.name = nameValue;
     this.addresses = addresses;
     this.surname = surname;

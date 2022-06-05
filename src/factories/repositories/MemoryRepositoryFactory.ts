@@ -23,12 +23,12 @@ export class MemoryRepositoryFactory implements IRepositoryFactory {
     customers: Customer[];
     products: Product[];
   } = {
-    users: [],
-    companies: [],
-    companyUsers: [],
-    customers: [],
-    products: [],
-  };
+      users: [],
+      companies: [],
+      companyUsers: [],
+      customers: [],
+      products: [],
+    };
 
   createUserRepository(): IUserRepository {
     return new UserRepository(

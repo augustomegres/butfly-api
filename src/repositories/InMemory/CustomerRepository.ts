@@ -8,8 +8,11 @@ export class CustomerRepository implements ICustomerRepository {
     this.customers = customers;
   }
 
+  async findOne(uid: string): Promise<Customer | undefined> {
+    return this.customers.find(customer => customer.uid === uid);
+  }
 
-  async list({
+  async findAll({
     filter,
     sortBy,
     page,

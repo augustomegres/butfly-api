@@ -54,6 +54,7 @@ export class CreateCustomerUseCase {
 
     const customerEntity = new Customer({
       uid: v4(),
+      companyUid: companyUid,
       name: data.name,
       surname: data.surname,
       observations: data.observations,

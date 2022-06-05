@@ -29,7 +29,7 @@ export class CreateCompanyUseCase {
 
   async execute(
     data: CreateCompanyData,
-    userId: string | number
+    userUid: string | number
   ): Promise<Company> {
     const addresses: Address[] = [];
     data.addresses?.forEach((address) => {
@@ -62,7 +62,7 @@ export class CreateCompanyUseCase {
       emails,
     });
 
-    await this.companyRepository.create(company, userId);
+    await this.companyRepository.create(company, userUid);
 
     return company;
   }

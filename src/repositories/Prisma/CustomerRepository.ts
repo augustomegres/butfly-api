@@ -14,7 +14,11 @@ export class CustomerRepository implements ICustomerRepository {
     this.database = prismaDatabase;
   }
 
-  async list({
+  findOne(uid: string): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
+
+  async findAll({
     page = 1,
     perPage = 25,
     filter = [],

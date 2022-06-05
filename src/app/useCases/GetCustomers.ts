@@ -15,7 +15,7 @@ export class GetCustomersUseCase {
     include?: 'emails' | 'phones' | 'addresses'[]
     search?: string
   }) {
-    const customers = await this.customerRepository.list({ page, perPage, include, filter, sortBy, search });
+    const customers = await this.customerRepository.findAll({ page, perPage, include, filter, sortBy, search });
     return customers
   }
 }
