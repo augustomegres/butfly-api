@@ -4,7 +4,7 @@ type ListCustomers = { rows: Customer[]; page: number; totalPages: number, count
 
 
 export interface ICustomerRepository {
-  findOne(uid: string): Promise<Customer | undefined>;
+  findOne(uid: string): Promise<Customer | undefined | null>;
   findAll({ filter, sortBy, page = 1, perPage = 25, }: {
     filter?: [string, QueryParamOperators, string][];
     sortBy?: { [field: string]: 'asc' | 'desc' };

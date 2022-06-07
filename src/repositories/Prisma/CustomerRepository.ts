@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+import { CustomerAddress, PrismaClient } from "@prisma/client";
 import { ICustomerRepository } from "@repositories/Interfaces/ICustomerRepository";
 import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 import { Customer } from "@src/entities/Customer";
@@ -14,8 +14,12 @@ export class CustomerRepository implements ICustomerRepository {
     this.database = prismaDatabase;
   }
 
-  findOne(uid: string): Promise<any> {
-    throw new Error("Method not implemented.");
+  async findOne(uid: string): Promise<Customer | null> {
+    const customer = await this.database.customer.findUnique({
+      where: { uid },
+      include: { addresses: true, emails: true, phones: true }
+    })
+    return customer as Customer | null
   }
 
   async findAll({
