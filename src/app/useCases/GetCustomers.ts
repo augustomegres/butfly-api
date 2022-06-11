@@ -1,5 +1,5 @@
-import { IRepositoryFactory } from "@factories/interfaces/IRepositoryFactory";
-import { ICustomerRepository } from "@repositories/Interfaces/ICustomerRepository";
+import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
+import { ICustomerRepository } from "@app/repositories/Interfaces/ICustomerRepository";
 import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 
 export class GetCustomersUseCase {

@@ -1,8 +1,8 @@
-import { Company } from "@entities/Company";
-import { User } from "@entities/User";
-import { IRepositoryFactory } from "@factories/interfaces/IRepositoryFactory";
-import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
-import { AppError } from "@shared/errors/AppError";
+import { Company } from "@src/domain/entities/Company";
+import { User } from "@src/domain/entities/User";
+import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
+import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
+import { AppError } from "@infra/shared/errors/AppError";
 
 export class GetUserCompanies {
   userRepository: IUserRepository;

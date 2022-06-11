@@ -1,6 +1,6 @@
-import { IRepositoryFactory } from "@factories/interfaces/IRepositoryFactory";
-import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
-import { AppError } from "@shared/errors/AppError";
+import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
+import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
+import { AppError } from "@infra/shared/errors/AppError";
 
 export class MeUseCase {
   userRepository: IUserRepository;

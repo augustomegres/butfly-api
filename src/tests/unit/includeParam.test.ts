@@ -1,4 +1,4 @@
-import { IncludeParam } from "@http/services/includeParam";
+import { IncludeParam } from "@infra/http/services/includeParam";
 
 describe('IncludeParam', () => {
   it('should return an empty array if no include param is passed', () => {

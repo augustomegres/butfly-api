@@ -1,7 +1,7 @@
-import { Customer } from "@entities/Customer";
-import { IRepositoryFactory } from "@factories/interfaces/IRepositoryFactory";
-import { ICustomerRepository } from "@repositories/Interfaces/ICustomerRepository";
-import { AppError } from "@shared/errors/AppError";
+import { Customer } from "@src/domain/entities/Customer";
+import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
+import { ICustomerRepository } from "@app/repositories/Interfaces/ICustomerRepository";
+import { AppError } from "@infra/shared/errors/AppError";
 
 export class GetCustomerUseCase {
   customerRepository: ICustomerRepository;

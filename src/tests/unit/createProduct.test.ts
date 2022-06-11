@@ -1,5 +1,5 @@
 import { CreateProductUseCase } from "@app/useCases/CreateProduct";
-import { MemoryRepositoryFactory } from "@factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
 
 const factory = new MemoryRepositoryFactory();
 const createProductUseCase = new CreateProductUseCase(factory);
@@ -93,5 +93,5 @@ describe("CreateProduct", () => {
     ).rejects.toThrow("Price must be greater than 0");
   });
 
-  it("should not be possible to create a product with invalid name", async () => {});
+  it("should not be possible to create a product with invalid name", async () => { });
 });

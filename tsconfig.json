@@ -13,12 +13,12 @@
     "types": ["vitest/globals"],
     "paths": {
       "@app/*": ["./src/app/*"],
-      "@http/*": ["./src/http/*"],
+      "@http/*": ["src/infra/http/*"],
       "@infra/*": ["./src/infra/*"],
-      "@shared/*": ["./src/shared/*"],
-      "@repositories/*": ["./src/repositories/*"],
-      "@entities/*": ["./src/entities/*"],
-      "@factories/*": ["./src/factories/*"],
+      "@shared/*": ["src/infra/shared/*"],
+      "@repositories/*": ["src/app/repositories/*"],
+      "@entities/*": ["src/domain/entities/*"],
+      "@factories/*": ["src/app/factories/*"],
       "@src/*": ["./src/*"]
     }
   }

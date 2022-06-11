@@ -1,4 +1,4 @@
-import { QueryParams } from "@http/services/queryParam";
+import { QueryParams } from "@infra/http/services/queryParam";
 
 const queryParams = new QueryParams();
 

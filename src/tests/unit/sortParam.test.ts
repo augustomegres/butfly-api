@@ -1,4 +1,4 @@
-import { SortParam } from "@http/services/sortParam";
+import { SortParam } from "@infra/http/services/sortParam";
 const sortParam = new SortParam()
 
 describe('SortParam', () => {

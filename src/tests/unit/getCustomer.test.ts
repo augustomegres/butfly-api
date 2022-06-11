@@ -2,7 +2,7 @@ import { CreateCompanyUseCase } from "@app/useCases/CreateCompany";
 import { CreateCustomerUseCase } from "@app/useCases/CreateCustomer";
 import { CreateUserUseCase } from "@app/useCases/CreateUser";
 import { GetCustomerUseCase } from "@app/useCases/GetCustomer";
-import { MemoryRepositoryFactory } from "@factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
 
 const repositoryFactory = new MemoryRepositoryFactory()
 const getCustomer = new GetCustomerUseCase(repositoryFactory);

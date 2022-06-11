@@ -1,8 +1,8 @@
 import { CreateCompanyUseCase } from "@app/useCases/CreateCompany";
-import { CompanyMiddleware } from "@http/middlewares/companyMiddleware";
+import { CompanyMiddleware } from "@infra/http/middlewares/companyMiddleware";
 import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser";
 import { CreateUserUseCase } from "@src/app/useCases/CreateUser";
-import { MemoryRepositoryFactory } from "@src/factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
 import { NextFunction, Request, Response } from "express";
 import { validUser } from "../mocks/users";
 

@@ -1,9 +1,9 @@
 import { CreateCompanyUseCase } from "@app/useCases/CreateCompany";
 import { CreateUserUseCase } from "@app/useCases/CreateUser";
-import { Company } from "@entities/Company";
-import { User } from "@entities/User";
+import { Company } from "@src/domain/entities/Company";
+import { User } from "@src/domain/entities/User";
 import { CreateCustomerUseCase } from "@src/app/useCases/CreateCustomer";
-import { MemoryRepositoryFactory } from "@src/factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
 import { v4 } from "uuid";
 
 let user: User;

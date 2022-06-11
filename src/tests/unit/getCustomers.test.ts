@@ -1,6 +1,6 @@
 import { CreateCustomerUseCase } from "@app/useCases/CreateCustomer";
 import { GetCustomersUseCase } from "@app/useCases/GetCustomers";
-import { MemoryRepositoryFactory } from "@factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
 
 const repositoryFactory = new MemoryRepositoryFactory()
 const getCustomers = new GetCustomersUseCase(repositoryFactory)

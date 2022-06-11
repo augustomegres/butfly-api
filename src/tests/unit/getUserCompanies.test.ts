@@ -1,7 +1,7 @@
 import { CreateCompanyUseCase } from "@app/useCases/CreateCompany";
 import { CreateUserUseCase } from "@app/useCases/CreateUser";
 import { GetUserCompanies } from "@app/useCases/GetUserCompanies";
-import { MemoryRepositoryFactory } from "@factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
 
 let repositoryFactory: MemoryRepositoryFactory;
 

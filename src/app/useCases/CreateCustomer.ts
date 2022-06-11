@@ -1,9 +1,9 @@
-import { IUserRepository } from "@repositories/Interfaces/IUserRepository";
-import { AppError } from "@shared/errors/AppError";
-import { Address } from "@src/entities/Address";
-import { Customer } from "@src/entities/Customer";
-import { IRepositoryFactory } from "@src/factories/interfaces/IRepositoryFactory";
-import { ICustomerRepository } from "@src/repositories/Interfaces/ICustomerRepository";
+import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
+import { AppError } from "@infra/shared/errors/AppError";
+import { Address } from "@src/domain/entities/Address";
+import { Customer } from "@src/domain/entities/Customer";
+import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
+import { ICustomerRepository } from "@app/repositories/Interfaces/ICustomerRepository";
 import { v4 } from "uuid";
 
 export interface CreateCustomerData {

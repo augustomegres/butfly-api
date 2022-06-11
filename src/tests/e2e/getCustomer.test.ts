@@ -1,4 +1,4 @@
-import { user } from '@http/routes/user.routes'
+import { user } from '@infra/http/routes/user.routes'
 import { app } from '@infra/app'
 import supertest from 'supertest'
 import { createAndAuthenticateUser } from '../mocks/users'

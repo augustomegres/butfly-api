@@ -1,5 +1,5 @@
 import { CreateUserUseCase } from "@app/useCases/CreateUser";
-import { MemoryRepositoryFactory } from "@factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
 import bcrypt from "bcryptjs";
 
 const validUser = {

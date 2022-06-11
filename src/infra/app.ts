@@ -3,8 +3,8 @@ import "express-async-errors";
 import express, { json } from "express";
 
 import cors from "cors";
-import { errorMiddleware } from "@http/middlewares/errorMiddleware";
-import { appRoutes } from "@http/routes";
+import { errorMiddleware } from "@infra/http/middlewares/errorMiddleware";
+import { appRoutes } from "@infra/http/routes";
 
 const app = express();
 
