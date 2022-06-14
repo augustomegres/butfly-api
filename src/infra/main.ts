@@ -19,6 +19,8 @@ import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser";
 import { CreateCompanyUseCase } from "@src/app/useCases/CreateCompany";
 import { AuthenticateUserController } from "@infra/http/controllers/AuthenticateUserController";
 import { CreateCompanyController } from "@infra/http/controllers/CreateCompanyController";
+import { CreateCustomerEmailUseCase } from "@app/useCases/CreateCustomerEmail";
+import { CreateCustomerEmailController } from "@http/controllers/CreateCustomerEmailController";
 
 const repositoryFactory = new PrismaRepositoryFactory();
 
@@ -53,14 +55,13 @@ const getCustomersUseCase = new GetCustomersUseCase(repositoryFactory)
 const getCustomersController = new GetCustomersController(getCustomersUseCase)
 
 const createCustomerUseCase = new CreateCustomerUseCase(repositoryFactory);
-const createCustomerController = new CreateCustomerController(
-  createCustomerUseCase
-);
+const createCustomerController = new CreateCustomerController(createCustomerUseCase);
+
+const createCustomerEmailUseCase = new CreateCustomerEmailUseCase(repositoryFactory)
+const createCustomerEmailController = new CreateCustomerEmailController(createCustomerEmailUseCase)
 
 const createProductUseCase = new CreateProductUseCase(repositoryFactory);
-const createProductController = new CreateProductController(
-  createProductUseCase
-);
+const createProductController = new CreateProductController(createProductUseCase);
 
 export {
   authMiddleware,
@@ -73,5 +74,6 @@ export {
   getCustomersController,
   createCustomerController,
   createProductController,
+  createCustomerEmailController,
   getUserCompaniesController,
 };

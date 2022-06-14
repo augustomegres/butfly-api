@@ -1,5 +1,5 @@
-import { CustomerAddress, PrismaClient } from "@prisma/client";
 import { ICustomerRepository } from "@app/repositories/Interfaces/ICustomerRepository";
+import { PrismaClient } from "@prisma/client";
 import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 import { Customer } from "@src/domain/entities/Customer";
 import { includeParamParser } from "./services/IncludeParamsParser";
@@ -12,6 +12,20 @@ export class CustomerRepository implements ICustomerRepository {
 
   constructor(prismaDatabase: PrismaClient) {
     this.database = prismaDatabase;
+  }
+
+  async findByEmail(email: string): Promise<Customer | undefined | null> {
+    const customer = await this.database.customer.findFirst({
+      where: { emails: { some: { email: email } } },
+      include: { emails: true }
+    })
+    return customer as Customer | undefined | null
+  }
+
+  async createEmail(email: { uid: string; email: string; }, customerUid: string): Promise<void> {
+    await this.database.customerEmail.create({
+      data: { email: email.email, customer: { connect: { uid: customerUid } } },
+    })
   }
 
   async findOne(uid: string): Promise<Customer | null> {
