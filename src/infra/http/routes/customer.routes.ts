@@ -1,5 +1,6 @@
+import { CreateCustomerPhoneController } from "@http/controllers/CreateCustomerPhoneController";
 import { ValidateParamMiddleware } from "@infra/http/middlewares/validateParamMiddleware";
-import { companyMiddleware, createCustomerController, createCustomerEmailController, getCustomerController, getCustomersController } from "@infra/main";
+import { companyMiddleware, createCustomerController, createCustomerEmailController, createCustomerPhoneController, getCustomerController, getCustomersController } from "@infra/main";
 import { Router } from "express";
 const validateParam = new ValidateParamMiddleware()
 
@@ -27,6 +28,12 @@ customer.post(
 customer.post('/companies/:companyUid/customers/:customerUid/emails',
   async (req, res, next) => await companyMiddleware.handle(req, res, next),
   async (req, res) => await createCustomerEmailController.handle(req, res)
+)
+
+
+customer.post('/companies/:companyUid/customers/:customerUid/phones',
+  async (req, res, next) => await companyMiddleware.handle(req, res, next),
+  async (req, res) => await createCustomerPhoneController.handle(req, res)
 )
 
 export { customer };

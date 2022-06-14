@@ -28,6 +28,12 @@ export class CustomerRepository implements ICustomerRepository {
     })
   }
 
+  async createPhone(phone: { uid: string; phone: string; }, customerUid: string): Promise<void> {
+    await this.database.customerPhone.create({
+      data: { phone: phone.phone, customer: { connect: { uid: customerUid } } },
+    })
+  }
+
   async findOne(uid: string): Promise<Customer | null> {
     const customer = await this.database.customer.findUnique({
       where: { uid },

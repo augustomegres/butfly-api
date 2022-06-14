@@ -6,7 +6,7 @@ export class Phone {
 
   constructor(phone: string) {
     this.validate(phone);
-    this.value = phone;
+    this.value = phone.replace(/\D/g, "");
   }
 
   validate(phone: string) {

@@ -1,8 +1,7 @@
-import { Company } from "@src/domain/entities/Company";
-import { User } from "@src/domain/entities/User";
 import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
 import { IUserRepository } from "@app/contracts/repositories/IUserRepository";
 import { AppError } from "@infra/shared/errors/AppError";
+import { Company } from "@src/domain/entities/Company";
 
 export class GetUserCompanies {
   userRepository: IUserRepository;

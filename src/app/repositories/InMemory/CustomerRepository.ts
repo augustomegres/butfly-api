@@ -55,10 +55,18 @@ export class CustomerRepository implements ICustomerRepository {
     return data;
   }
 
-  async createEmail({ email, uid }: { email: string, uid: string }, customerUid: string): Promise<void> {
-    const customer = await this.customers.map((customer) => {
+  async createEmail({ uid, email }: { uid: string, email: string }, customerUid: string): Promise<void> {
+    this.customers.map((customer) => {
       if (customer.uid === customerUid) {
         customer.emails.push({ email, uid });
+      }
+    })
+  }
+
+  async createPhone({ uid, phone }: { uid: string; phone: string; }, customerUid: string): Promise<void> {
+    this.customers.map((customer) => {
+      if (customer.uid === customerUid) {
+        customer.phones.push({ uid, phone });
       }
     })
   }
