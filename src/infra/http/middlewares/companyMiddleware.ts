@@ -1,5 +1,5 @@
-import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
-import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
+import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
+import { IUserRepository } from "@app/contracts/repositories/IUserRepository";
 import { AppError } from "@infra/shared/errors/AppError";
 import { NextFunction, Request, Response } from "express";
 

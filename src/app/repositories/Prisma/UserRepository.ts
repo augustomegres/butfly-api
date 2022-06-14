@@ -1,7 +1,7 @@
 import { Company } from "@src/domain/entities/Company";
 import { User } from "@src/domain/entities/User";
 import { PrismaClient } from "@prisma/client";
-import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
+import { IUserRepository } from "@app/contracts/repositories/IUserRepository";
 
 export class UserRepository implements IUserRepository {
   database: PrismaClient;

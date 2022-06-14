@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import { Company } from "@src/domain/entities/Company";
-import { ICompanyRepository } from "@app/repositories/Interfaces/ICompanyRepository";
+import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository";
 import { Address } from "@src/domain/entities/Address";
 
 export class CompanyRepository implements ICompanyRepository {

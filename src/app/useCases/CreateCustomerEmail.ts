@@ -1,5 +1,5 @@
-import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
-import { ICustomerRepository } from "@app/repositories/Interfaces/ICustomerRepository";
+import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
+import { ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
 import { AppError } from "@infra/shared/errors/AppError";
 import { Email } from "@src/domain/entities/Email";
 import { v4 } from "uuid";

@@ -1,4 +1,4 @@
-import { ICustomerRepository } from "@app/repositories/Interfaces/ICustomerRepository";
+import { ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
 import { PrismaClient } from "@prisma/client";
 import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 import { Customer } from "@src/domain/entities/Customer";

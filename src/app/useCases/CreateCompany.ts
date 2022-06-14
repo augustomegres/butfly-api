@@ -1,7 +1,7 @@
 import { Address } from "@src/domain/entities/Address";
 import { Company } from "@src/domain/entities/Company";
-import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
-import { ICompanyRepository } from "@app/repositories/Interfaces/ICompanyRepository";
+import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
+import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository";
 import { v4 } from "uuid";
 
 interface CreateCompanyData {

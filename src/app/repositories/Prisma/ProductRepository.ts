@@ -1,6 +1,6 @@
 import { Product } from "@src/domain/entities/Product";
 import { PrismaClient } from "@prisma/client";
-import { IProductRepository } from "@app/repositories/Interfaces/IProductRepository";
+import { IProductRepository } from "@app/contracts/repositories/IProductRepository";
 
 export class ProductRepository implements IProductRepository {
   database: PrismaClient;

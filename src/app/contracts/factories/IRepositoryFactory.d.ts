@@ -1,6 +1,6 @@
-import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
-import { ICompanyRepository } from "@app/repositories/Interfaces/ICompanyRepository";
-import { ICustomerRepository } from "@app/repositories/Interfaces/ICustomerRepository";
+import { IUserRepository } from "@app/contracts/repositories/IUserRepository";
+import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository";
+import { ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
 import { ICustomerEmailRepository } from "@app/repositories/Interfaces/ICustomerEmailRepository";
 
 export interface IRepositoryFactory {

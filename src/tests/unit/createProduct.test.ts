@@ -1,5 +1,5 @@
 import { CreateProductUseCase } from "@app/useCases/CreateProduct";
-import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/MemoryRepositoryFactory";
 
 const factory = new MemoryRepositoryFactory();
 const createProductUseCase = new CreateProductUseCase(factory);

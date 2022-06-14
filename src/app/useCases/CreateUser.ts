@@ -1,7 +1,7 @@
 import { User } from "@src/domain/entities/User";
-import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
+import { IUserRepository } from "@app/contracts/repositories/IUserRepository";
 import { AppError } from "@infra/shared/errors/AppError";
-import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
+import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
 import { v4 } from "uuid";
 
 export class CreateUserUseCase {

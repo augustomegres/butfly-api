@@ -1,13 +1,13 @@
-import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
+import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
 
 import { UserRepository } from "@app/repositories/InMemory/UserRepository";
-import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
+import { IUserRepository } from "@app/contracts/repositories/IUserRepository";
 
 import { CompanyRepository } from "@app/repositories/InMemory/CompanyRepository";
-import { ICompanyRepository } from "@app/repositories/Interfaces/ICompanyRepository";
+import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository";
 
 import { CustomerRepository } from "@app/repositories/InMemory/CustomerRepository";
-import { ICustomerRepository } from "@app/repositories/Interfaces/ICustomerRepository";
+import { ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
 
 import { User } from "@src/domain/entities/User";
 import { Company } from "@src/domain/entities/Company";

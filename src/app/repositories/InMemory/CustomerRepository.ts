@@ -2,7 +2,7 @@ import { Customer } from "@src/domain/entities/Customer";
 import {
   ICustomerRepository,
   ListCustomers,
-} from "@app/repositories/Interfaces/ICustomerRepository";
+} from "@app/contracts/repositories/ICustomerRepository";
 import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 
 export class CustomerRepository implements ICustomerRepository {

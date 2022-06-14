@@ -1,4 +1,4 @@
-import { IUserRepository } from "@app/repositories/Interfaces/IUserRepository";
+import { IUserRepository } from "@app/contracts/repositories/IUserRepository";
 import { User } from "@src/domain/entities/User";
 import { Company } from "@src/domain/entities/Company";
 

@@ -1,5 +1,5 @@
 import { Company } from "@src/domain/entities/Company";
-import { ICompanyRepository } from "@app/repositories/Interfaces/ICompanyRepository";
+import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository";
 
 export class CompanyRepository implements ICompanyRepository {
   companies: Company[];

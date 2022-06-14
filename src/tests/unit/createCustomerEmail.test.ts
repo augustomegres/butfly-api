@@ -1,4 +1,4 @@
-import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/MemoryRepositoryFactory";
 import { CreateCustomerUseCase } from "@app/useCases/CreateCustomer";
 import { CreateCustomerEmailUseCase } from "@app/useCases/CreateCustomerEmail";
 

@@ -5,7 +5,7 @@ import { GetCustomerUseCase } from "@app/useCases/GetCustomer";
 import { GetCustomersUseCase } from "@app/useCases/GetCustomers";
 import { GetUserCompanies } from "@app/useCases/GetUserCompanies";
 import { MeUseCase } from "@app/useCases/Me";
-import { PrismaRepositoryFactory } from "@app/factories/repositories/PrismaRepositoryFactory";
+import { PrismaRepositoryFactory } from "@app/factories/PrismaRepositoryFactory";
 import { CreateCustomerController } from "@infra/http/controllers/CreateCustomerController";
 import { CreateProductController } from "@infra/http/controllers/CreateProductController";
 import { CreateUserController } from "@infra/http/controllers/CreateUserController";

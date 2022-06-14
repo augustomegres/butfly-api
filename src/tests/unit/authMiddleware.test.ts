@@ -2,7 +2,7 @@ import { AuthMiddleware } from "@infra/http/middlewares/authMiddleware";
 import { CompanyMiddleware } from "@infra/http/middlewares/companyMiddleware";
 import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser";
 import { CreateUserUseCase } from "@src/app/useCases/CreateUser";
-import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/MemoryRepositoryFactory";
 import { NextFunction, Request, Response } from "express";
 import { validUser } from "../mocks/users";
 

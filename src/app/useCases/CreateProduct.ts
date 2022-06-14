@@ -1,7 +1,7 @@
 import { Product } from "@src/domain/entities/Product";
 import { ProductVariant } from "@src/domain/entities/ProductVariant";
-import { IRepositoryFactory } from "@app/factories/interfaces/IRepositoryFactory";
-import { IProductRepository } from "@app/repositories/Interfaces/IProductRepository";
+import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
+import { IProductRepository } from "@app/contracts/repositories/IProductRepository";
 import { v4 } from "uuid";
 
 export class CreateProductUseCase {

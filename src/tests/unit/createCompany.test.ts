@@ -1,6 +1,6 @@
 import { Address } from "@src/domain/entities/Address";
 import { CreateCompanyUseCase } from "@src/app/useCases/CreateCompany";
-import { MemoryRepositoryFactory } from "@app/factories/repositories/MemoryRepositoryFactory";
+import { MemoryRepositoryFactory } from "@app/factories/MemoryRepositoryFactory";
 
 const repositoryFactory = new MemoryRepositoryFactory();
 const createCompanyUseCase = new CreateCompanyUseCase(repositoryFactory);
