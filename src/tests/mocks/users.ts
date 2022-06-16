@@ -1,4 +1,4 @@
-import supertest, { SuperTest, Test } from "supertest";
+import { SuperTest, Test } from "supertest";
 
 export const validUser = {
   name: "John Doe",
@@ -14,5 +14,3 @@ export async function createAndAuthenticateUser(
   const response = await api.post("/signin").send({ email, password });
   return { Authorization: `Bearer ${response.body.token}` }
 };
-
-

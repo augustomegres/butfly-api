@@ -1,4 +1,4 @@
-import { ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
+import { CreateAddressProps, ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
 import { PrismaClient } from "@prisma/client";
 import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 import { Customer } from "@src/domain/entities/Customer";
@@ -102,4 +102,9 @@ export class CustomerRepository implements ICustomerRepository {
     });
     return data;
   }
+
+  async createAddress(address: CreateAddressProps, customerUid: string): Promise<void> {
+    throw new Error("Method not implemented.");
+  }
+
 }

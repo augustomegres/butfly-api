@@ -1,5 +1,8 @@
 import { Customer } from "@src/domain/entities/Customer";
 import {
+  CreateAddressProps,
+  CreateEmailProps,
+  CreatePhoneProps,
   ICustomerRepository,
   ListCustomers,
 } from "@app/contracts/repositories/ICustomerRepository";
@@ -55,19 +58,28 @@ export class CustomerRepository implements ICustomerRepository {
     return data;
   }
 
-  async createEmail({ uid, email }: { uid: string, email: string }, customerUid: string): Promise<void> {
+  async createEmail(email: CreateEmailProps, customerUid: string): Promise<void> {
     this.customers.map((customer) => {
       if (customer.uid === customerUid) {
-        customer.emails.push({ email, uid });
+        customer.emails.push({ email: email.email, uid: email.uid });
       }
     })
   }
 
-  async createPhone({ uid, phone }: { uid: string; phone: string; }, customerUid: string): Promise<void> {
+  async createPhone(phone: CreatePhoneProps, customerUid: string): Promise<void> {
     this.customers.map((customer) => {
       if (customer.uid === customerUid) {
-        customer.phones.push({ uid, phone });
+        customer.phones.push({ uid: phone.uid, phone: phone.phone });
       }
     })
+  }
+
+  async createAddress(address: CreateAddressProps, customerUid: string): Promise<void> {
+    this.customers.map((customer) => {
+      if (customer.uid === customerUid) {
+        customer.addresses.push(address);
+      }
+    })
+
   }
 }
