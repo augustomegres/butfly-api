@@ -1,4 +1,4 @@
-import { CreateAddressProps, ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
+import { CreateAddressProps, CreateEmailProps, CreatePhoneProps, ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
 import { PrismaClient } from "@prisma/client";
 import { QueryParamOperators } from "@src/@types/QueryParamTypes";
 import { Customer } from "@src/domain/entities/Customer";
@@ -22,15 +22,30 @@ export class CustomerRepository implements ICustomerRepository {
     return customer as Customer | undefined | null
   }
 
-  async createEmail(email: { uid: string; email: string; }, customerUid: string): Promise<void> {
+  async createEmail(email: CreateEmailProps, customerUid: string): Promise<void> {
     await this.database.customerEmail.create({
       data: { email: email.email, customer: { connect: { uid: customerUid } } },
     })
   }
 
-  async createPhone(phone: { uid: string; phone: string; }, customerUid: string): Promise<void> {
+  async createPhone(phone: CreatePhoneProps, customerUid: string): Promise<void> {
     await this.database.customerPhone.create({
       data: { phone: phone.phone, customer: { connect: { uid: customerUid } } },
+    })
+  }
+
+  async createAddress(address: CreateAddressProps, customerUid: string): Promise<void> {
+    await this.database.customerAddress.create({
+      data: {
+        city: address.city,
+        neighborhood: address.neighborhood,
+        number: address.number,
+        state: address.state,
+        street: address.street,
+        zipCode: address.zipCode,
+        complement: address.complement,
+        customer: { connect: { uid: customerUid } }
+      }
     })
   }
 
@@ -102,9 +117,4 @@ export class CustomerRepository implements ICustomerRepository {
     });
     return data;
   }
-
-  async createAddress(address: CreateAddressProps, customerUid: string): Promise<void> {
-    throw new Error("Method not implemented.");
-  }
-
 }

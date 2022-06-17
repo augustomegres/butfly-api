@@ -1,10 +1,10 @@
 import { MemoryRepositoryFactory } from "@app/factories/MemoryRepositoryFactory"
 import { CreateCustomerUseCase } from "@app/useCases/CreateCustomer"
-import { CreateCustomerAddress } from "@app/useCases/CreateCustomerAddress"
+import { CreateCustomerAddressUseCase } from "@app/useCases/CreateCustomerAddress"
 
 const repositoryFactory = new MemoryRepositoryFactory()
 const createCustomer = new CreateCustomerUseCase(repositoryFactory)
-const createCustomerAddress = new CreateCustomerAddress(repositoryFactory)
+const createCustomerAddress = new CreateCustomerAddressUseCase(repositoryFactory)
 
 const address = { city: 'Cataguases', neighborhood: 'Bairro', number: '1', state: 'MG', street: 'Rua Amazonas', zipCode: '36773-582', complement: '', }
 let customer: any

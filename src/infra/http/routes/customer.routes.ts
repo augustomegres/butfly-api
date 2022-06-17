@@ -1,6 +1,14 @@
-import { CreateCustomerPhoneController } from "@http/controllers/CreateCustomerPhoneController";
 import { ValidateParamMiddleware } from "@infra/http/middlewares/validateParamMiddleware";
-import { companyMiddleware, createCustomerController, createCustomerEmailController, createCustomerPhoneController, getCustomerController, getCustomersController } from "@infra/main";
+import {
+  companyMiddleware,
+  createCustomerAddressController,
+  createCustomerController,
+  createCustomerEmailController,
+  createCustomerPhoneController,
+  getCustomerController,
+  getCustomersController
+} from "@infra/main";
+
 import { Router } from "express";
 const validateParam = new ValidateParamMiddleware()
 
@@ -25,15 +33,22 @@ customer.post(
   async (req, res) => await createCustomerController.handle(req, res)
 );
 
-customer.post('/companies/:companyUid/customers/:customerUid/emails',
+customer.post(
+  '/companies/:companyUid/customers/:customerUid/emails',
   async (req, res, next) => await companyMiddleware.handle(req, res, next),
   async (req, res) => await createCustomerEmailController.handle(req, res)
 )
 
 
-customer.post('/companies/:companyUid/customers/:customerUid/phones',
+customer.post(
+  '/companies/:companyUid/customers/:customerUid/phones',
   async (req, res, next) => await companyMiddleware.handle(req, res, next),
   async (req, res) => await createCustomerPhoneController.handle(req, res)
 )
 
+customer.post(
+  '/companies/:companyUid/customers/:customerUid/address',
+  async (req, res, next) => await companyMiddleware.handle(req, res, next),
+  async (req, res) => await createCustomerAddressController.handle(req, res)
+)
 export { customer };

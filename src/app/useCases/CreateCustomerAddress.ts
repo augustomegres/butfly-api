@@ -14,7 +14,7 @@ interface AddressProps {
   complement?: string;
 }
 
-export class CreateCustomerAddress {
+export class CreateCustomerAddressUseCase {
   customerRepository: ICustomerRepository
   constructor(repositoryFactory: IRepositoryFactory) {
     this.customerRepository = repositoryFactory.createCustomerRepository()
