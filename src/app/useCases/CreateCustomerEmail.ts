@@ -11,10 +11,11 @@ export class CreateCustomerEmailUseCase {
   }
 
   async execute(email: string, customerUid: string) {
-    new Email(email)
+    if (!email) throw new AppError('Email was not provided.')
+    const emailInstance = new Email(email)
     const customer = await this.customerRepository.findOne(customerUid)
     if (!customer) throw new AppError('Customer does not exist')
-    const emailIsAlreadyRegistered = await this.customerRepository.findByEmail(email)
+    const emailIsAlreadyRegistered = await this.customerRepository.findByEmail(emailInstance.value)
     if (emailIsAlreadyRegistered) throw new AppError('Email already registered')
     await this.customerRepository.createEmail({ email, uid: v4() }, customerUid)
   }

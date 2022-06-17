@@ -39,7 +39,7 @@ export class CustomerRepository implements ICustomerRepository {
       data: {
         city: address.city,
         neighborhood: address.neighborhood,
-        number: address.number,
+        number: String(address.number),
         state: address.state,
         street: address.street,
         zipCode: address.zipCode,

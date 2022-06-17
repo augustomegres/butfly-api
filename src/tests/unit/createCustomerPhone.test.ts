@@ -23,6 +23,10 @@ describe('Create Customer Phone', () => {
     await expect(createCustomerPhone.execute('32999999999', 'uid')).rejects.toThrowError('Customer not found')
   })
 
+  it('should throw an error if phone is not provided', async () => {
+    await expect(createCustomerPhone.execute('', 'uid')).rejects.toThrowError('Phone must be provided')
+  })
+
   it('should throw an error if phone is invalid', async () => {
     await expect(createCustomerPhone.execute('329999999', customer.uid)).rejects.toThrowError('Phone is invalid')
   })

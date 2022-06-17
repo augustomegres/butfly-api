@@ -26,6 +26,11 @@ describe('Create customer email', () => {
     await expect(createCustomerEmail.execute('invalid', newCustomer.uid)).rejects.toThrow('Email is invalid.')
   })
 
+  test('should throw an error if email is not provided', async () => {
+    const newCustomer = await createCustomer.execute({ companyUid: 'uid', data: { name: 'Customer name', emails: [] } })
+    await expect(createCustomerEmail.execute('', newCustomer.uid)).rejects.toThrow('Email was not provided.')
+  })
+
   test('should not be possible to create a new customer email if email is already used by this user', async () => {
     const newCustomer = await createCustomer.execute({ companyUid: 'uid', data: { name: 'Customer name', emails: [] } })
     await createCustomer.execute({ companyUid: 'uid', data: { name: 'New Customer', emails: ['valid@mail.com'] } })

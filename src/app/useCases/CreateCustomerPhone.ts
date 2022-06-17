@@ -11,6 +11,7 @@ export class CreateCustomerPhoneUseCase {
   }
 
   async execute(phone: string, customerUid: string) {
+    if (!phone) throw new AppError('Phone must be provided')
     const phoneInstance = new Phone(phone)
     const customer = await this.customerRepository.findOne(customerUid);
     if (!customer) throw new AppError("Customer not found", 404);
