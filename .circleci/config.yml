@@ -14,9 +14,6 @@ jobs:
           name: Install postgres
           command: docker-compose up -d
       - run:
-          name: Create .env
-          command: echo "DATABASE_URL=\nJWT_SECRET=123"| tee .env
-      - run:
           name: Run tests
           command: yarn test
 workflows:
