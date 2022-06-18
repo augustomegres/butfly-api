@@ -15,7 +15,7 @@ jobs:
           command: docker-compose up -d
       - run:
           name: Copy env file
-          command: cp .env.test .env
+          command: ls
       - run:
           name: Run tests
           command: yarn test
