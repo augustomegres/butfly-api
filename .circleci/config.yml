@@ -11,8 +11,11 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
+          name: Install postgres
+          command: docker-compose up -d
+      - run:
           name: Run tests
-          command: yarn test:unit
+          command: yarn test
 workflows:
   production:
     jobs:
