@@ -1,0 +1,19 @@
+version: 2.1
+orbs:
+  node: circleci/node@4.7
+
+jobs:
+  build-and-test:
+    machine:
+      image: ubuntu-2004:2022.04.1
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Run tests
+          command: yarn test:unit
+workflows:
+  production:
+    jobs:
+      - build-and-test
