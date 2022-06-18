@@ -14,8 +14,8 @@ jobs:
           name: Install postgres
           command: docker-compose up -d
       - run:
-          name: Copy env file
-          command: ls -a
+          name: Create .env
+          command: echo "DATABASE_URL="| tee .env && ls -a
       - run:
           name: Run tests
           command: yarn test
