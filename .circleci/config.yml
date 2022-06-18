@@ -16,6 +16,11 @@ jobs:
       - run:
           name: Run tests
           command: yarn test
+      - run:
+          name: Deploy
+          no_output_timeout: 5m
+          command: |
+            ssh $SSH_USER@$SSH_HOST "cd ~/butfly-api && git checkout . && git pull && yarn && yarn build"
 workflows:
   production:
     jobs:
