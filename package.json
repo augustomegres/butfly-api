@@ -7,7 +7,8 @@
     "dev": "ts-node-dev -r tsconfig-paths/register --files src/server.ts",
     "test": "vitest",
     "test:unit": "vitest src/tests/unit",
-    "test:e2e": "vitest src/tests/e2e"
+    "test:e2e": "vitest src/tests/e2e",
+    "build": "tsc  --project tsconfig.json && tscpaths -p tsconfig.json -s ./src -o ./dist"
   },
   "prisma": {
     "schema": "src/infra/database/prisma/schema.prisma"
