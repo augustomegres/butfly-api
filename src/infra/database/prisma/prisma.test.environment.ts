@@ -11,7 +11,7 @@ const prismaBinary = "./node_modules/.bin/prisma";
 const SCHEMA = v4();
 
 async function setup() {
-  dotenvExpand.expand({ parsed: { DATABASE_URL: process.env.DATABASE_URL, SCHEMA: SCHEMA, } } as DotenvExpandOptions)
+  dotenvExpand.expand({ parsed: { DATABASE_URL: process.env.DATABASE_URL, SCHEMA: SCHEMA, JWT_SECRET: '123456' } } as DotenvExpandOptions)
   await execSync(`${prismaBinary} migrate deploy`);
 }
 
