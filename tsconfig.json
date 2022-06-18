@@ -9,6 +9,7 @@
     "skipLibCheck": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"],
     "outDir": "./dist",
+    "rootDir": ".",
     "baseUrl": "./src",
     "types": ["vitest/globals"],
     "paths": {

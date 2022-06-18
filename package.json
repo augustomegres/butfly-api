@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "UNLICENSED",
   "scripts": {
-    "dev": "ts-node-dev -r tsconfig-paths/register --files src/server.ts",
+    "dev": "ts-node-dev -r tsconfig-paths/register --files server.ts",
     "test": "vitest",
     "test:unit": "vitest src/tests/unit",
     "test:e2e": "vitest src/tests/e2e",
