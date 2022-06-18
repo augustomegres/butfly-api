@@ -8,7 +8,7 @@
     "strict": true,
     "skipLibCheck": true,
     "typeRoots": ["./src/@types", "./node_modules/@types"],
-    "outDir": "./dist",
+    "outDir": "./build",
     "rootDir": ".",
     "baseUrl": "./src",
     "types": ["vitest/globals"],
