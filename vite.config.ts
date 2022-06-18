@@ -1,14 +1,15 @@
 import tsconfigPaths from "vite-tsconfig-paths";
 import { defineConfig } from "vitest/config";
-import dotenv from "dotenv";
 
 export default () => {
-  dotenv.config({ path: `./.env.test` });
   const config = defineConfig({
     plugins: [tsconfigPaths()],
     test: {
+      env: {
+        DATABASE_URL: "postgresql://user:Butfly123@localhost:5401/testing?schema=${SCHEMA}",
+        JWT_SECRET: '123456789'
+      },
       setupFiles: ["./src/infra/database/prisma/prisma.test.environment.ts"],
-      clearMocks: true,
       globals: true,
     },
   });

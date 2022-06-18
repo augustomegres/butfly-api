@@ -3,14 +3,15 @@ import util from "node:util";
 import { Client } from "pg";
 import { v4 } from "uuid";
 import { afterAll, beforeAll } from "vitest";
+import dotenvExpand, { DotenvExpandOptions } from 'dotenv-expand'
 
 const execSync = util.promisify(exec);
 
 const prismaBinary = "./node_modules/.bin/prisma";
 const SCHEMA = v4();
-process.env.SCHEMA = SCHEMA;
 
 async function setup() {
+  dotenvExpand.expand({ parsed: { DATABASE_URL: process.env.DATABASE_URL, SCHEMA: SCHEMA, } } as DotenvExpandOptions)
   await execSync(`${prismaBinary} migrate deploy`);
 }
 
