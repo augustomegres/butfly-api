@@ -8,7 +8,8 @@
     "test": "vitest",
     "test:unit": "vitest src/tests/unit",
     "test:e2e": "vitest src/tests/e2e",
-    "build": "tsc && resolve-tspaths"
+    "build": "tsc && resolve-tspaths",
+    "migrate": "yarn prisma migrate dev"
   },
   "prisma": {
     "schema": "src/infra/database/prisma/schema.prisma"
