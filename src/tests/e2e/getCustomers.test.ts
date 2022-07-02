@@ -8,7 +8,7 @@ let userToken: { Authorization: string }
 
 describe("GetCustomers", () => {
   beforeAll(async () => {
-    userToken = await createAndAuthenticateUser(butflyApi, { name: "John Doe", email: "john@mail.com", password: "12345678" })
+    userToken = await createAndAuthenticateUser({ api: butflyApi })
     const company = await butflyApi.post("/companies").send({ name: "Testing" }).set(userToken)
     companyUid = company.body.uid
   })

@@ -25,6 +25,8 @@ import { CreateCustomerPhoneController } from "@http/controllers/CreateCustomerP
 import { CreateCustomerPhoneUseCase } from "@app/useCases/CreateCustomerPhone"
 import { CreateCustomerAddressUseCase } from "@app/useCases/CreateCustomerAddress"
 import { CreateCustomerAddressController } from "@http/controllers/CreateCustomerAddressController"
+import { DeleteCustomerPhoneUseCase } from "@app/useCases/DeleteCustomerPhone"
+import { DeleteCustomerPhoneController } from "@http/controllers/DeleteCustomerController"
 
 const repositoryFactory = new PrismaRepositoryFactory()
 
@@ -61,6 +63,9 @@ const createCustomerEmailController = new CreateCustomerEmailController(createCu
 const createCustomerPhoneUseCase = new CreateCustomerPhoneUseCase(repositoryFactory)
 const createCustomerPhoneController = new CreateCustomerPhoneController(createCustomerPhoneUseCase)
 
+const deleteCustomerPhoneUseCase = new DeleteCustomerPhoneUseCase(repositoryFactory)
+const deleteCustomerPhoneController = new DeleteCustomerPhoneController(deleteCustomerPhoneUseCase)
+
 const createCustomerAddressUseCase = new CreateCustomerAddressUseCase(repositoryFactory)
 const createCustomerAddressController = new CreateCustomerAddressController(createCustomerAddressUseCase)
 
@@ -80,6 +85,7 @@ export {
   createProductController,
   createCustomerEmailController,
   createCustomerPhoneController,
+  deleteCustomerPhoneController,
   createCustomerAddressController,
   getUserCompaniesController,
 }

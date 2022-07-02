@@ -12,8 +12,8 @@ export class CreateCustomerPhoneController {
     const { customerUid } = req.params
     const { phone } = req.body
 
-    await this.createCustomerPhone.execute(phone, customerUid)
+    const phoneData = await this.createCustomerPhone.execute(phone, customerUid)
 
-    return res.status(201).send()
+    return res.status(201).send({ phone: phoneData.phone, uid: phoneData.uid })
   }
 }

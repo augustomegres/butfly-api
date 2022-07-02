@@ -7,16 +7,15 @@ let userToken: { Authorization: string }
 let alternativeUserToken: { Authorization: string }
 describe("GetUserCompanies", () => {
   beforeAll(async () => {
-    userToken = await createAndAuthenticateUser(api, {
-      name: "Valid User",
-      email: "any@mail.com",
-      password: "12345678",
-    })
+    userToken = await createAndAuthenticateUser({ api })
 
-    alternativeUserToken = await createAndAuthenticateUser(api, {
-      name: "Alternative User",
-      email: "any2@mail.com",
-      password: "12345678",
+    alternativeUserToken = await createAndAuthenticateUser({
+      api,
+      user: {
+        name: "Alternative User",
+        email: "any2@mail.com",
+        password: "12345678",
+      },
     })
 
     await supertest(app).post("/companies").set(userToken).send({ name: "Test Company" })

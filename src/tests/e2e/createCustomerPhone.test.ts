@@ -8,7 +8,7 @@ let company: any
 
 describe("Create customer phone", () => {
   beforeAll(async () => {
-    token = await createAndAuthenticateUser(apiButfly, { name: "Any User", email: "valid@mail.com", password: "12345678" })
+    token = await createAndAuthenticateUser({ api: apiButfly, user: { name: "Any User", email: "valid@mail.com", password: "12345678" } })
     company = await apiButfly.post(`/companies`).set(token).send({ name: "Any Company" })
   })
 
@@ -19,6 +19,8 @@ describe("Create customer phone", () => {
       .set(token)
       .send({ phone: "32999999999" })
     expect(phone.status).toBe(201)
+    expect(phone.body.phone).toBe("32999999999")
+    expect(phone.body.uid).toBeDefined()
   })
 
   test("should not be possible to create a customer phone if customer is not from logged user company", async () => {

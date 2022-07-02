@@ -42,9 +42,7 @@ export class CustomerRepository implements ICustomerRepository {
     const customers = await this.customers.filter((customer) => customer.emails.length > 0)
     const customer = customers.find((customer) => {
       const customerIsValid = customer.emails.find((email) => {
-        if (email.email === searchEmail) {
-          return customer
-        }
+        if (email.email === searchEmail) return customer
       })
       if (customerIsValid) return true
     })
@@ -70,6 +68,10 @@ export class CustomerRepository implements ICustomerRepository {
         customer.phones.push({ uid: phone.uid, phone: phone.phone })
       }
     })
+  }
+
+  async deletePhone(phoneUid: string): Promise<void> {
+    this.customers.map((customer) => (customer.phones = customer.phones.filter((phone) => phone.uid !== phoneUid)))
   }
 
   async createAddress(address: CreateAddressProps, customerUid: string): Promise<void> {

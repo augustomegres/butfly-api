@@ -42,5 +42,6 @@ export interface ICustomerRepository {
   create({ data, companyUid }: { data: Customer; companyUid: string | number }): Promise<Customer>
   createEmail(email: CreateEmailProps, customerUid: string): Promise<void>
   createPhone(phone: CreatePhoneProps, customerUid: string): Promise<void>
+  deletePhone(phoneUid: string): Promise<void>
   createAddress(address: CreateAddressProps, customerUid: string): Promise<void>
 }

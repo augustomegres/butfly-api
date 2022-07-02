@@ -9,7 +9,7 @@ let userToken: any
 
 describe("GetCustomer", () => {
   beforeAll(async () => {
-    userToken = await createAndAuthenticateUser(apiButfly, { name: "Any User", email: "user@mail.com", password: "12345678" })
+    userToken = await createAndAuthenticateUser({ api: apiButfly, user: { name: "Any User", email: "user@mail.com", password: "12345678" } })
     company = await apiButfly.post(`/companies`).send({ name: "Any company" }).set(userToken)
   })
 

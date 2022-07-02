@@ -15,6 +15,8 @@ export class CreateCustomerPhoneUseCase {
     const phoneInstance = new Phone(phone)
     const customer = await this.customerRepository.findOne(customerUid)
     if (!customer) throw new AppError("Customer not found", 404)
-    await this.customerRepository.createPhone({ phone: phoneInstance.value, uid: v4() }, customerUid)
+    const uid = v4()
+    await this.customerRepository.createPhone({ phone: phoneInstance.value, uid }, customerUid)
+    return { phone: phoneInstance.value, uid }
   }
 }

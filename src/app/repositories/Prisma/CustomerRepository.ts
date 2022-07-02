@@ -12,6 +12,11 @@ export class CustomerRepository implements ICustomerRepository {
   constructor(prismaDatabase: PrismaClient) {
     this.database = prismaDatabase
   }
+  async deletePhone(phoneUid: string): Promise<void> {
+    await this.database.customerPhone.delete({
+      where: { uid: phoneUid },
+    })
+  }
 
   async findByEmail(email: string): Promise<Customer | undefined | null> {
     const customer = await this.database.customer.findFirst({
@@ -29,7 +34,7 @@ export class CustomerRepository implements ICustomerRepository {
 
   async createPhone(phone: CreatePhoneProps, customerUid: string): Promise<void> {
     await this.database.customerPhone.create({
-      data: { phone: phone.phone, customer: { connect: { uid: customerUid } } },
+      data: { uid: phone.uid, phone: phone.phone, customer: { connect: { uid: customerUid } } },
     })
   }
 

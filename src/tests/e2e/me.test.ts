@@ -8,16 +8,15 @@ let alternativeToken: { Authorization: string }
 
 describe("Me", () => {
   beforeAll(async () => {
-    userToken = await createAndAuthenticateUser(butflyApi, {
-      name: "John Doe",
-      email: "any@mail.com",
-      password: "12345678",
-    })
+    userToken = await createAndAuthenticateUser({ api: butflyApi })
 
-    alternativeToken = await createAndAuthenticateUser(butflyApi, {
-      name: "Jane Doe",
-      email: "any2@mail.com",
-      password: "12345678",
+    alternativeToken = await createAndAuthenticateUser({
+      api: butflyApi,
+      user: {
+        name: "Jane Doe",
+        email: "any2@mail.com",
+        password: "12345678",
+      },
     })
 
     await butflyApi.post("/companies").send({ name: "company" }).set(alternativeToken)

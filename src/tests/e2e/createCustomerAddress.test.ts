@@ -10,7 +10,7 @@ const address = { city: "Cataguases", neighborhood: "Bairro", number: "1", state
 
 describe("Create customer address", () => {
   beforeAll(async () => {
-    token = await createAndAuthenticateUser(apiButfly, { name: "Any User", email: "valid@mail.com", password: "12345678" })
+    token = await createAndAuthenticateUser({ api: apiButfly })
     company = await apiButfly.post(`/companies`).set(token).send({ name: "Any Company" })
   })
 
@@ -21,7 +21,10 @@ describe("Create customer address", () => {
   })
 
   test("should not be possible to create a customer address if customer is not from logged user company", async () => {
-    const altUser = await createAndAuthenticateUser(apiButfly, { email: "anotherValidMail@mail.com", password: "12345678", name: "Valid User" })
+    const altUser = await createAndAuthenticateUser({
+      api: apiButfly,
+      user: { email: "anotherValidMail@mail.com", password: "12345678", name: "Valid User" },
+    })
     const customer = await apiButfly.post(`/companies/${company.body.uid}/customers`).set(token).send({ name: "Any Customer" })
     const address = await apiButfly.post(`/companies/${company.body.uid}/customers/${customer.body.uid}/address`).set(altUser)
     expect(address.status).toBe(401)

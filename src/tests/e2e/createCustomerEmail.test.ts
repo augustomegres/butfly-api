@@ -8,7 +8,7 @@ let customer: any
 
 describe("Create customer email", () => {
   beforeAll(async () => {
-    userToken = await createAndAuthenticateUser(apiButfly, { email: "validMail@mail.com", password: "12345678", name: "Valid User" })
+    userToken = await createAndAuthenticateUser({ api: apiButfly, user: { email: "validMail@mail.com", password: "12345678", name: "Valid User" } })
     company = await apiButfly.post("/companies").set(userToken).send({ name: "Valid Company" })
     customer = await apiButfly.post(`/companies/${company.body.uid}/customers`).set(userToken).send({ name: "Valid Customer" })
   })
@@ -41,7 +41,10 @@ describe("Create customer email", () => {
   })
 
   test("should not be possible to store a new customer email if customer company is different from logged user company", async () => {
-    const altUser = await createAndAuthenticateUser(apiButfly, { email: "anotherValidMail@mail.com", password: "12345678", name: "Valid User" })
+    const altUser = await createAndAuthenticateUser({
+      api: apiButfly,
+      user: { email: "anotherValidMail@mail.com", password: "12345678", name: "Valid User" },
+    })
     const customerEmail = await apiButfly
       .post(`/companies/${company.body.uid}/customers/${customer.body.uid}/emails`)
       .send({ email: "any@mail.com" })
