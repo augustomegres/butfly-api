@@ -1,13 +1,13 @@
-import { Product } from "@src/domain/entities/Product";
+import { Product } from "@src/domain/entities/Product"
 
 export class ProductRepository {
-  products: Product[];
+  products: Product[]
   constructor(products: Product[]) {
-    this.products = products;
+    this.products = products
   }
 
   async create(product: Product): Promise<Product> {
-    this.products.push(product);
-    return product;
+    this.products.push(product)
+    return product
   }
 }

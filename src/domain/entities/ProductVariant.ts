@@ -1,9 +1,9 @@
 export class ProductVariant {
-  uid: string;
-  images: string[];
-  properties: { [key: string]: string }[];
-  price: number;
-  quantity: number;
+  uid: string
+  images: string[]
+  properties: { [key: string]: string }[]
+  price: number
+  quantity: number
 
   constructor({
     uid,
@@ -12,16 +12,16 @@ export class ProductVariant {
     price,
     quantity,
   }: {
-    uid: string;
-    images: string[];
-    properties: { [key: string]: string }[];
-    price: number;
-    quantity: number;
+    uid: string
+    images: string[]
+    properties: { [key: string]: string }[]
+    price: number
+    quantity: number
   }) {
-    this.uid = uid;
-    this.images = images;
-    this.properties = properties;
-    this.price = price;
-    this.quantity = quantity;
+    this.uid = uid
+    this.images = images
+    this.properties = properties
+    this.price = price
+    this.quantity = quantity
   }
 }

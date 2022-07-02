@@ -1,15 +1,15 @@
-import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser";
-import { Request, Response } from "express";
+import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser"
+import { Request, Response } from "express"
 
 export class AuthenticateUserController {
-  authenticateUser: AuthenticateUserUseCase;
+  authenticateUser: AuthenticateUserUseCase
   constructor(authenticateUser: AuthenticateUserUseCase) {
-    this.authenticateUser = authenticateUser;
+    this.authenticateUser = authenticateUser
   }
 
   async handle(req: Request, res: Response) {
-    const { email, password } = req.body;
-    const { token } = await this.authenticateUser.execute({ email, password });
-    return res.status(200).json({ token });
+    const { email, password } = req.body
+    const { token } = await this.authenticateUser.execute({ email, password })
+    return res.status(200).json({ token })
   }
 }

@@ -1,11 +1,11 @@
-import { Product } from "@src/domain/entities/Product";
-import { PrismaClient } from "@prisma/client";
-import { IProductRepository } from "@app/contracts/repositories/IProductRepository";
+import { Product } from "@src/domain/entities/Product"
+import { PrismaClient } from "@prisma/client"
+import { IProductRepository } from "@app/contracts/repositories/IProductRepository"
 
 export class ProductRepository implements IProductRepository {
-  database: PrismaClient;
+  database: PrismaClient
   constructor(prismaDatabase: PrismaClient) {
-    this.database = prismaDatabase;
+    this.database = prismaDatabase
   }
   async create(data: Product): Promise<Product> {
     await this.database.product.create({
@@ -16,8 +16,8 @@ export class ProductRepository implements IProductRepository {
         description: data.description,
         variant: { createMany: { data: [...data.variants] } },
       },
-    });
+    })
 
-    return data;
+    return data
   }
 }

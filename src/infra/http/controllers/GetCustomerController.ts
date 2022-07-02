@@ -1,5 +1,5 @@
-import { GetCustomerUseCase } from "@app/useCases/GetCustomer";
-import { Request, Response } from "express";
+import { GetCustomerUseCase } from "@app/useCases/GetCustomer"
+import { Request, Response } from "express"
 
 export class GetCustomerController {
   getCustomerUseCase: GetCustomerUseCase

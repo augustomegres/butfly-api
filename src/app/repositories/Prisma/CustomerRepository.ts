@@ -1,23 +1,22 @@
-import { CreateAddressProps, CreateEmailProps, CreatePhoneProps, ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository";
-import { PrismaClient } from "@prisma/client";
-import { QueryParamOperators } from "@src/@types/QueryParamTypes";
-import { Customer } from "@src/domain/entities/Customer";
-import { includeParamParser } from "./services/IncludeParamsParser";
-import { prismaParamParser } from "./services/QueryParamsParser";
-import { searchParamParser } from "./services/SearchParamsParser";
-
+import { CreateAddressProps, CreateEmailProps, CreatePhoneProps, ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository"
+import { PrismaClient } from "@prisma/client"
+import { QueryParamOperators } from "@src/@types/QueryParamTypes"
+import { Customer } from "@src/domain/entities/Customer"
+import { includeParamParser } from "./services/IncludeParamsParser"
+import { prismaParamParser } from "./services/QueryParamsParser"
+import { searchParamParser } from "./services/SearchParamsParser"
 
 export class CustomerRepository implements ICustomerRepository {
-  database: PrismaClient;
+  database: PrismaClient
 
   constructor(prismaDatabase: PrismaClient) {
-    this.database = prismaDatabase;
+    this.database = prismaDatabase
   }
 
   async findByEmail(email: string): Promise<Customer | undefined | null> {
     const customer = await this.database.customer.findFirst({
       where: { emails: { some: { email: email } } },
-      include: { emails: true }
+      include: { emails: true },
     })
     return customer as Customer | undefined | null
   }
@@ -44,15 +43,15 @@ export class CustomerRepository implements ICustomerRepository {
         street: address.street,
         zipCode: address.zipCode,
         complement: address.complement,
-        customer: { connect: { uid: customerUid } }
-      }
+        customer: { connect: { uid: customerUid } },
+      },
     })
   }
 
   async findOne(uid: string): Promise<Customer | null> {
     const customer = await this.database.customer.findUnique({
       where: { uid },
-      include: { addresses: true, emails: true, phones: true }
+      include: { addresses: true, emails: true, phones: true },
     })
     return customer as Customer | null
   }
@@ -63,21 +62,21 @@ export class CustomerRepository implements ICustomerRepository {
     filter = [],
     sortBy,
     include = [],
-    search
+    search,
   }: {
-    page?: number;
-    perPage?: number;
-    sortBy?: { [field: string]: 'asc' | 'desc' };
-    filter?: [string, QueryParamOperators, string][];
-    include?: 'emails' | 'phones' | 'addresses'[];
+    page?: number
+    perPage?: number
+    sortBy?: { [field: string]: "asc" | "desc" }
+    filter?: [string, QueryParamOperators, string][]
+    include?: "emails" | "phones" | "addresses"[]
     search?: string
-  }): Promise<{ rows: Customer[]; page: number; totalPages: number, count: number }> {
+  }): Promise<{ rows: Customer[]; page: number; totalPages: number; count: number }> {
     const prismaParams = prismaParamParser(filter)
     const prismaIncludes = includeParamParser(include as string[])
-    const searchParams = searchParamParser(search, ['name', 'surname', 'observations'])
+    const searchParams = searchParamParser(search, ["name", "surname", "observations"])
     const customerTableInfo = await this.database.customer.aggregate({
       _count: true,
-      where: { ...prismaParams, ...searchParams }
+      where: { ...prismaParams, ...searchParams },
     })
     const customers = await this.database.customer.findMany({
       where: { ...prismaParams, ...searchParams },
@@ -91,18 +90,11 @@ export class CustomerRepository implements ICustomerRepository {
       rows: customers as any[],
       page: page,
       count: customerTableInfo._count,
-      totalPages: Math.ceil(customerTableInfo._count / perPage)
-    };
+      totalPages: Math.ceil(customerTableInfo._count / perPage),
+    }
   }
 
-  async create({
-    data,
-    companyUid,
-  }: {
-    data: Customer;
-    companyUid: string;
-    userUid: string;
-  }): Promise<Customer> {
+  async create({ data, companyUid }: { data: Customer; companyUid: string; userUid: string }): Promise<Customer> {
     await this.database.customer.create({
       data: {
         uid: data.uid,
@@ -114,7 +106,7 @@ export class CustomerRepository implements ICustomerRepository {
         emails: { create: [...data.emails] },
         phones: { create: [...data.phones] },
       },
-    });
-    return data;
+    })
+    return data
   }
 }

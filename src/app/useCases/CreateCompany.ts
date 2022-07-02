@@ -1,37 +1,34 @@
-import { Address } from "@src/domain/entities/Address";
-import { Company } from "@src/domain/entities/Company";
-import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
-import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository";
-import { v4 } from "uuid";
+import { Address } from "@src/domain/entities/Address"
+import { Company } from "@src/domain/entities/Company"
+import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory"
+import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository"
+import { v4 } from "uuid"
 
 interface CreateCompanyData {
-  name: string;
-  cnpj?: string;
+  name: string
+  cnpj?: string
   addresses?: {
-    street: string;
-    number: string;
-    complement?: string;
-    neighborhood: string;
-    city: string;
-    state: string;
-    zipCode: string;
-  }[];
-  phones?: string[];
-  emails?: string[];
+    street: string
+    number: string
+    complement?: string
+    neighborhood: string
+    city: string
+    state: string
+    zipCode: string
+  }[]
+  phones?: string[]
+  emails?: string[]
 }
 
 export class CreateCompanyUseCase {
-  companyRepository: ICompanyRepository;
+  companyRepository: ICompanyRepository
 
   constructor(repositoryFactory: IRepositoryFactory) {
-    this.companyRepository = repositoryFactory.createCompanyRepository();
+    this.companyRepository = repositoryFactory.createCompanyRepository()
   }
 
-  async execute(
-    data: CreateCompanyData,
-    userUid: string | number
-  ): Promise<Company> {
-    const addresses: Address[] = [];
+  async execute(data: CreateCompanyData, userUid: string | number): Promise<Company> {
+    const addresses: Address[] = []
     data.addresses?.forEach((address) => {
       addresses.push(
         new Address({
@@ -44,14 +41,14 @@ export class CreateCompanyUseCase {
           state: address.state,
           zipCode: address.zipCode,
         })
-      );
-    });
+      )
+    })
 
-    const phones: { uid: string; phone: string }[] = [];
-    data.phones?.forEach((phone) => phones.push({ uid: v4(), phone: phone }));
+    const phones: { uid: string; phone: string }[] = []
+    data.phones?.forEach((phone) => phones.push({ uid: v4(), phone: phone }))
 
-    const emails: { uid: string; email: string }[] = [];
-    data.emails?.forEach((email) => emails.push({ uid: v4(), email: email }));
+    const emails: { uid: string; email: string }[] = []
+    data.emails?.forEach((email) => emails.push({ uid: v4(), email: email }))
 
     const company = new Company({
       uid: v4(),
@@ -60,10 +57,10 @@ export class CreateCompanyUseCase {
       addresses,
       phones,
       emails,
-    });
+    })
 
-    await this.companyRepository.create(company, userUid);
+    await this.companyRepository.create(company, userUid)
 
-    return company;
+    return company
   }
 }

@@ -1,18 +1,18 @@
-import { CreateCompanyUseCase } from "@app/useCases/CreateCompany";
-import { CreateUserUseCase } from "@app/useCases/CreateUser";
-import { Company } from "@src/domain/entities/Company";
-import { User } from "@src/domain/entities/User";
-import { CreateCustomerUseCase } from "@src/app/useCases/CreateCustomer";
-import { MemoryRepositoryFactory } from "@app/factories/MemoryRepositoryFactory";
-import { v4 } from "uuid";
+import { CreateCompanyUseCase } from "@app/useCases/CreateCompany"
+import { CreateUserUseCase } from "@app/useCases/CreateUser"
+import { Company } from "@src/domain/entities/Company"
+import { User } from "@src/domain/entities/User"
+import { CreateCustomerUseCase } from "@src/app/useCases/CreateCustomer"
+import { MemoryRepositoryFactory } from "@app/factories/MemoryRepositoryFactory"
+import { v4 } from "uuid"
 
-let user: User;
-let company: Company;
+let user: User
+let company: Company
 
-const repositoryFactory = new MemoryRepositoryFactory();
-const createUserUseCase = new CreateUserUseCase(repositoryFactory);
-const createCompanyUseCase = new CreateCompanyUseCase(repositoryFactory);
-const createCustomerUseCase = new CreateCustomerUseCase(repositoryFactory);
+const repositoryFactory = new MemoryRepositoryFactory()
+const createUserUseCase = new CreateUserUseCase(repositoryFactory)
+const createCompanyUseCase = new CreateCompanyUseCase(repositoryFactory)
+const createCustomerUseCase = new CreateCustomerUseCase(repositoryFactory)
 describe("CreateCustomer", () => {
   const validCustomer = {
     name: "John Doe",
@@ -32,25 +32,25 @@ describe("CreateCustomer", () => {
         complement: "",
       },
     ],
-  };
+  }
 
   beforeAll(async () => {
     user = await createUserUseCase.execute({
       name: "John Doe",
       email: "any@mail.com",
       password: "12345678",
-    });
+    })
 
-    company = await createCompanyUseCase.execute({ name: "Company" }, user.uid);
-  });
+    company = await createCompanyUseCase.execute({ name: "Company" }, user.uid)
+  })
   it("should be possible to create a customer", async () => {
     await expect(
       createCustomerUseCase.execute({
         data: validCustomer,
         companyUid: company.uid,
       })
-    ).resolves.toBeDefined();
-  });
+    ).resolves.toBeDefined()
+  })
 
   it("should be possible to create a customer if address is not provided", async () => {
     await expect(
@@ -61,8 +61,8 @@ describe("CreateCustomer", () => {
         },
         companyUid: company.uid,
       })
-    ).resolves.toBeDefined();
-  });
+    ).resolves.toBeDefined()
+  })
 
   it("should be possible to create a customer if phones is not provided", async () => {
     await expect(
@@ -73,8 +73,8 @@ describe("CreateCustomer", () => {
         },
         companyUid: company.uid,
       })
-    ).resolves.toBeDefined();
-  });
+    ).resolves.toBeDefined()
+  })
 
   it("should be possible to create a customer if emails is not provided", async () => {
     await expect(
@@ -85,8 +85,8 @@ describe("CreateCustomer", () => {
         },
         companyUid: company.uid,
       })
-    ).resolves.toBeDefined();
-  });
+    ).resolves.toBeDefined()
+  })
   it("should not be possible to create a customer if name was not provided", async () => {
     await expect(
       createCustomerUseCase.execute({
@@ -96,6 +96,6 @@ describe("CreateCustomer", () => {
         },
         companyUid: company.uid,
       })
-    ).rejects.toThrow();
-  });
-});
+    ).rejects.toThrow()
+  })
+})

@@ -1,18 +1,18 @@
-import { PrismaClient } from "@prisma/client";
-import { Company } from "@src/domain/entities/Company";
-import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository";
-import { Address } from "@src/domain/entities/Address";
+import { PrismaClient } from "@prisma/client"
+import { Company } from "@src/domain/entities/Company"
+import { ICompanyRepository } from "@app/contracts/repositories/ICompanyRepository"
+import { Address } from "@src/domain/entities/Address"
 
 export class CompanyRepository implements ICompanyRepository {
-  database: PrismaClient;
+  database: PrismaClient
   constructor(prismaDatabase: PrismaClient) {
-    this.database = prismaDatabase;
+    this.database = prismaDatabase
   }
 
   async create(data: Company, userUid: string): Promise<Company> {
-    const addresses = data.addresses as Address[];
-    const emails = data.emails as { uid: string; email: string }[];
-    const phones = data.phones as { uid: string; phone: string }[];
+    const addresses = data.addresses as Address[]
+    const emails = data.emails as { uid: string; email: string }[]
+    const phones = data.phones as { uid: string; phone: string }[]
     await this.database.company.create({
       data: {
         uid: data.uid,
@@ -23,8 +23,8 @@ export class CompanyRepository implements ICompanyRepository {
         phones: { create: [...phones] },
         companyUsers: { create: { users: { connect: { uid: userUid } } } },
       },
-    });
+    })
 
-    return data;
+    return data
   }
 }

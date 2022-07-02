@@ -1,13 +1,13 @@
-import { Product } from "@src/domain/entities/Product";
-import { ProductVariant } from "@src/domain/entities/ProductVariant";
-import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory";
-import { IProductRepository } from "@app/contracts/repositories/IProductRepository";
-import { v4 } from "uuid";
+import { Product } from "@src/domain/entities/Product"
+import { ProductVariant } from "@src/domain/entities/ProductVariant"
+import { IRepositoryFactory } from "@app/contracts/factories/IRepositoryFactory"
+import { IProductRepository } from "@app/contracts/repositories/IProductRepository"
+import { v4 } from "uuid"
 
 export class CreateProductUseCase {
-  productRepository: IProductRepository;
+  productRepository: IProductRepository
   constructor(repositoryFactory: IRepositoryFactory) {
-    this.productRepository = repositoryFactory.createProductRepository();
+    this.productRepository = repositoryFactory.createProductRepository()
   }
   async execute({
     companyUid,
@@ -15,17 +15,17 @@ export class CreateProductUseCase {
     description,
     variants,
   }: {
-    companyUid: string;
-    name: string;
-    description?: string;
+    companyUid: string
+    name: string
+    description?: string
     variants: {
-      images: string[];
-      properties: { [key: string]: string }[];
-      price: number;
-      quantity: number;
-    }[];
+      images: string[]
+      properties: { [key: string]: string }[]
+      price: number
+      quantity: number
+    }[]
   }) {
-    const productVariants: ProductVariant[] = [];
+    const productVariants: ProductVariant[] = []
     variants.map((variant) => {
       productVariants.push(
         new ProductVariant({
@@ -35,8 +35,8 @@ export class CreateProductUseCase {
           price: variant.price,
           quantity: variant.quantity,
         })
-      );
-    });
+      )
+    })
 
     const product = new Product({
       uid: v4(),
@@ -44,10 +44,10 @@ export class CreateProductUseCase {
       name: name,
       description: description,
       variants: productVariants,
-    });
+    })
 
-    await this.productRepository.create(product);
+    await this.productRepository.create(product)
 
-    return product;
+    return product
   }
 }

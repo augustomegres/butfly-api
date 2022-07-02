@@ -1,11 +1,11 @@
-import { GetCustomersUseCase } from "@app/useCases/GetCustomers";
-import { QueryParams } from "@infra/http/services/queryParam";
-import { SortParam } from "@infra/http/services/sortParam";
-import { IncludeParam } from "@infra/http/services/includeParam";
-import { Request, Response } from "express";
+import { GetCustomersUseCase } from "@app/useCases/GetCustomers"
+import { QueryParams } from "@infra/http/services/queryParam"
+import { SortParam } from "@infra/http/services/sortParam"
+import { IncludeParam } from "@infra/http/services/includeParam"
+import { Request, Response } from "express"
 
 export class GetCustomersController {
-  constructor(private getCustomersUseCase: GetCustomersUseCase) { }
+  constructor(private getCustomersUseCase: GetCustomersUseCase) {}
 
   async handle(req: Request, res: Response) {
     const queryParamParser = new QueryParams()
@@ -24,7 +24,7 @@ export class GetCustomersController {
       include,
       filter: params,
       sortBy: sort,
-      search: search as string
+      search: search as string,
     })
     return res.status(200).json(customers)
   }

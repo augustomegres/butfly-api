@@ -1,32 +1,28 @@
-import { AppError } from "@infra/shared/errors/AppError";
-import { NextFunction, Request, Response } from "express";
-import { verify } from "jsonwebtoken";
+import { AppError } from "@infra/shared/errors/AppError"
+import { NextFunction, Request, Response } from "express"
+import { verify } from "jsonwebtoken"
 
-const secret = process.env.JWT_SECRET as string;
+const secret = process.env.JWT_SECRET as string
 
 interface TokenPayload {
-  uid: string;
+  uid: string
 }
 
 export class AuthMiddleware {
-  async handle(
-    request: Request,
-    _: Response,
-    next: NextFunction
-  ): Promise<void> {
-    const { authorization } = request.headers;
+  async handle(request: Request, _: Response, next: NextFunction): Promise<void> {
+    const { authorization } = request.headers
 
-    if (!authorization) throw new AppError("Missing authorization header", 401);
+    if (!authorization) throw new AppError("Missing authorization header", 401)
 
-    const [, token] = authorization.split(" ");
+    const [, token] = authorization.split(" ")
     try {
-      const payload = verify(token, secret) as TokenPayload;
-      const user = payload;
-      request.user = user;
+      const payload = verify(token, secret) as TokenPayload
+      const user = payload
+      request.user = user
     } catch (error) {
-      throw new AppError("Invalid token", 401);
+      throw new AppError("Invalid token", 401)
     }
 
-    return next();
+    return next()
   }
 }

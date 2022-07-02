@@ -1,14 +1,14 @@
-import { CreateCompanyUseCase } from "@src/app/useCases/CreateCompany";
-import { Request, Response } from "express";
+import { CreateCompanyUseCase } from "@src/app/useCases/CreateCompany"
+import { Request, Response } from "express"
 
 export class CreateCompanyController {
-  createCompanyUseCase: CreateCompanyUseCase;
+  createCompanyUseCase: CreateCompanyUseCase
   constructor(createCompanyUseCase: CreateCompanyUseCase) {
-    this.createCompanyUseCase = createCompanyUseCase;
+    this.createCompanyUseCase = createCompanyUseCase
   }
 
   async handle(req: Request, res: Response) {
-    const { name, cnpj, addresses, emails, phones } = req.body;
+    const { name, cnpj, addresses, emails, phones } = req.body
     const company = await this.createCompanyUseCase.execute(
       {
         name,
@@ -18,7 +18,7 @@ export class CreateCompanyController {
         phones,
       },
       req.user.uid
-    );
-    return res.status(201).json(company);
+    )
+    return res.status(201).json(company)
   }
 }

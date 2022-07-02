@@ -1,16 +1,16 @@
-import { Email } from "@src/domain/entities/Email";
-import { Address } from "@src/domain/entities/Address";
-import { Phone } from "@src/domain/entities/Phone";
-import { Cnpj } from "@src/domain/entities/Cnpj";
-import { AppError } from "@infra/shared/errors/AppError";
+import { Email } from "@src/domain/entities/Email"
+import { Address } from "@src/domain/entities/Address"
+import { Phone } from "@src/domain/entities/Phone"
+import { Cnpj } from "@src/domain/entities/Cnpj"
+import { AppError } from "@infra/shared/errors/AppError"
 
 export class Company {
-  uid: string;
-  name: string;
-  cnpj?: string | null;
-  addresses?: Address[] | null;
-  phones?: { uid: string; phone: string }[] | null;
-  emails?: { uid: string; email: string }[] | null;
+  uid: string
+  name: string
+  cnpj?: string | null
+  addresses?: Address[] | null
+  phones?: { uid: string; phone: string }[] | null
+  emails?: { uid: string; email: string }[] | null
 
   constructor({
     uid,
@@ -20,34 +20,34 @@ export class Company {
     phones = [],
     emails = [],
   }: {
-    uid: string;
-    name: string;
-    cnpj?: string;
-    addresses: Address[];
-    phones: { uid: string; phone: string }[];
-    emails: { uid: string; email: string }[];
+    uid: string
+    name: string
+    cnpj?: string
+    addresses: Address[]
+    phones: { uid: string; phone: string }[]
+    emails: { uid: string; email: string }[]
   }) {
-    if (!name) throw new AppError("Company name is required");
-    if (name.length < 3) throw new AppError("Company name must be valid");
+    if (!name) throw new AppError("Company name is required")
+    if (name.length < 3) throw new AppError("Company name must be valid")
     if (cnpj) {
-      const { value: cnpjValue } = new Cnpj(cnpj);
-      this.cnpj = cnpjValue;
+      const { value: cnpjValue } = new Cnpj(cnpj)
+      this.cnpj = cnpjValue
     }
 
     phones.map((phone) => {
-      const { value: phoneValue } = new Phone(phone.phone);
-      phone.phone = phoneValue;
-    });
+      const { value: phoneValue } = new Phone(phone.phone)
+      phone.phone = phoneValue
+    })
 
     emails.map((email) => {
-      const { value: emailValue } = new Email(email.email);
-      email.email = emailValue;
-    });
+      const { value: emailValue } = new Email(email.email)
+      email.email = emailValue
+    })
 
-    this.uid = uid;
-    this.name = name;
-    this.addresses = addresses;
-    this.phones = phones;
-    this.emails = emails;
+    this.uid = uid
+    this.name = name
+    this.addresses = addresses
+    this.phones = phones
+    this.emails = emails
   }
 }

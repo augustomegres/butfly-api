@@ -1,13 +1,13 @@
-import { ProductVariant } from "@src/domain/entities/ProductVariant";
+import { ProductVariant } from "@src/domain/entities/ProductVariant"
 
 interface CreateProductData {
-  uid: string;
-  name: string;
-  description: string;
-  images: string[];
-  variants: ProductVariant[];
+  uid: string
+  name: string
+  description: string
+  images: string[]
+  variants: ProductVariant[]
 }
 
 export interface IProductRepository {
-  create(CreateProductData): Promise<Product>;
+  create(CreateProductData): Promise<Product>
 }

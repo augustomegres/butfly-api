@@ -1,17 +1,17 @@
-import { AppError } from "@infra/shared/errors/AppError";
-import { validateEmail } from "validations-br";
+import { AppError } from "@infra/shared/errors/AppError"
+import { validateEmail } from "validations-br"
 
 export class Email {
-  value: string;
+  value: string
 
   constructor(value: string) {
-    this.validate(value);
-    this.value = value;
+    this.validate(value)
+    this.value = value
   }
 
   validate(value: string) {
     if (!validateEmail(value)) {
-      throw new AppError("Email is invalid.");
+      throw new AppError("Email is invalid.")
     }
   }
 }
