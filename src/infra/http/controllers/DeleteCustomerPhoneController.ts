@@ -8,8 +8,8 @@ export class DeleteCustomerPhoneController {
   }
 
   async handle(req: Request, res: Response) {
-    const { phoneUid, customerUid, companyUid } = req.params
-    await this.deletePhone.execute(phoneUid, customerUid, companyUid)
+    const { phoneUid, customerUid } = req.params
+    await this.deletePhone.execute(phoneUid, customerUid)
     return res.send()
   }
 }

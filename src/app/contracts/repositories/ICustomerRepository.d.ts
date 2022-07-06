@@ -44,4 +44,5 @@ export interface ICustomerRepository {
   createPhone(phone: CreatePhoneProps, customerUid: string): Promise<void>
   deletePhone(phoneUid: string): Promise<void>
   createAddress(address: CreateAddressProps, customerUid: string): Promise<void>
+  deleteAddress(addressUid: string): Promise<void>
 }

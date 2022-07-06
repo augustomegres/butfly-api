@@ -8,12 +8,11 @@ export class DeleteCustomerPhoneUseCase {
     this.customerRepository = repositoryFactory.createCustomerRepository()
   }
 
-  async execute(phoneUid: string, customerUid: string, companyUid: string) {
+  async execute(phoneUid: string, customerUid: string) {
     if (!phoneUid) throw new AppError("Phone uid must be provided")
     if (!customerUid) throw new AppError("Customer uid must be provided")
     const customer = await this.customerRepository.findOne(customerUid)
     if (!customer) throw new AppError("Customer not exists")
-    if (customer.companyUid !== companyUid) throw new AppError("Customer does not belong to the provided company")
     const phone = customer.phones.find((phone: { uid: string; phone: string }) => phone.uid === phoneUid)
     if (!phone) throw new AppError("Phone not exists")
     await this.customerRepository.deletePhone(phoneUid)

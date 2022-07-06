@@ -7,7 +7,7 @@ export class CreateCustomerAddressController {
     const { city, neighborhood, number, state, street, zipCode, complement } = req.body
     const { customerUid } = req.params
 
-    await this.createCustomerAddress.execute(
+    const address = await this.createCustomerAddress.execute(
       {
         city,
         neighborhood,
@@ -19,6 +19,6 @@ export class CreateCustomerAddressController {
       },
       customerUid
     )
-    return res.status(201).send()
+    return res.status(201).json(address)
   }
 }

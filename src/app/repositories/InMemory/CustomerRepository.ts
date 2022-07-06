@@ -81,4 +81,8 @@ export class CustomerRepository implements ICustomerRepository {
       }
     })
   }
+
+  async deleteAddress(addressUid: string): Promise<void> {
+    this.customers.map((customer) => (customer.addresses = customer.addresses.filter((address) => address.uid !== addressUid)))
+  }
 }

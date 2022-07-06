@@ -12,6 +12,7 @@ export class CustomerRepository implements ICustomerRepository {
   constructor(prismaDatabase: PrismaClient) {
     this.database = prismaDatabase
   }
+
   async deletePhone(phoneUid: string): Promise<void> {
     await this.database.customerPhone.delete({
       where: { uid: phoneUid },
@@ -41,6 +42,7 @@ export class CustomerRepository implements ICustomerRepository {
   async createAddress(address: CreateAddressProps, customerUid: string): Promise<void> {
     await this.database.customerAddress.create({
       data: {
+        uid: address.uid,
         city: address.city,
         neighborhood: address.neighborhood,
         number: String(address.number),
@@ -51,6 +53,10 @@ export class CustomerRepository implements ICustomerRepository {
         customer: { connect: { uid: customerUid } },
       },
     })
+  }
+
+  async deleteAddress(addressUid: string): Promise<void> {
+    await this.database.customerAddress.delete({ where: { uid: addressUid } })
   }
 
   async findOne(uid: string): Promise<Customer | null> {

@@ -25,5 +25,6 @@ export class CreateCustomerAddressUseCase {
     const customer = await this.customerRepository.findOne(customerUid)
     if (!customer) throw new AppError("Customer not found", 404)
     await this.customerRepository.createAddress(addressEntity, customerUid)
+    return addressEntity
   }
 }

@@ -6,6 +6,7 @@ import {
   createCustomerEmailController,
   createCustomerPhoneController,
   deleteCustomerPhoneController,
+  deleteCustomerAddressController,
   getCustomerController,
   getCustomersController,
 } from "@infra/main"
@@ -52,8 +53,14 @@ customer.delete(
   async (req, res) => await deleteCustomerPhoneController.handle(req, res)
 )
 
+customer.delete(
+  "/companies/:companyUid/customers/:customerUid/addresses/:addressUid",
+  async (req, res, next) => await companyMiddleware.handle(req, res, next),
+  async (req, res) => await deleteCustomerAddressController.handle(req, res)
+)
+
 customer.post(
-  "/companies/:companyUid/customers/:customerUid/address",
+  "/companies/:companyUid/customers/:customerUid/addresses",
   async (req, res, next) => await companyMiddleware.handle(req, res, next),
   async (req, res) => await createCustomerAddressController.handle(req, res)
 )
