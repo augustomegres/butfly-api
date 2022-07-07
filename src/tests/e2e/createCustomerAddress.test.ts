@@ -16,7 +16,7 @@ describe("Create customer address", () => {
 
   test("should be possible to create a customer address", async () => {
     const customer = await apiButfly.post(`/companies/${company.body.uid}/customers`).set(token).send({ name: "Any Customer" })
-    const addressResponse = await apiButfly.post(`/companies/${company.body.uid}/customers/${customer.body.uid}/address`).set(token).send(address)
+    const addressResponse = await apiButfly.post(`/companies/${company.body.uid}/customers/${customer.body.uid}/addresses`).set(token).send(address)
     expect(addressResponse.status).toBe(201)
   })
 
@@ -26,7 +26,7 @@ describe("Create customer address", () => {
       user: { email: "anotherValidMail@mail.com", password: "12345678", name: "Valid User" },
     })
     const customer = await apiButfly.post(`/companies/${company.body.uid}/customers`).set(token).send({ name: "Any Customer" })
-    const address = await apiButfly.post(`/companies/${company.body.uid}/customers/${customer.body.uid}/address`).set(altUser)
+    const address = await apiButfly.post(`/companies/${company.body.uid}/customers/${customer.body.uid}/addresses`).set(altUser)
     expect(address.status).toBe(401)
   })
 })

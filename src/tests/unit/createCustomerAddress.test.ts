@@ -15,7 +15,7 @@ describe("Create customer address", () => {
   })
 
   test("should be possible to create an address", async () => {
-    await expect(createCustomerAddress.execute(address, customer.uid)).resolves.toBeUndefined()
+    await expect(createCustomerAddress.execute(address, customer.uid)).resolves.toBeDefined()
   })
 
   test("should not be possible to create a address if customer not exists", async () => {
