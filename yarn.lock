@@ -661,7 +661,7 @@ cross-spawn@^6.0.5:
     shebang-command "^1.2.0"
     which "^1.2.9"
 
-cross-spawn@^7.0.0:
+cross-spawn@^7.0.0, cross-spawn@^7.0.3:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
   integrity sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==
@@ -734,7 +734,17 @@ diff@^4.0.1:
   resolved "https://registry.yarnpkg.com/diff/-/diff-4.0.2.tgz#60f3aecb89d5fae520c11aa19efc2bb982aade7d"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
 
-dotenv-expand@^8.0.3:
+dotenv-cli@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/dotenv-cli/-/dotenv-cli-6.0.0.tgz#8a30cbc59d0a8aaa166b2fee0a9a55e23a1223ab"
+  integrity sha512-qXlCOi3UMDhCWFKe0yq5sg3X+pJAz+RQDiFN38AMSbUrnY3uZshSfDJUAge951OS7J9gwLZGfsBlWRSOYz/TRg==
+  dependencies:
+    cross-spawn "^7.0.3"
+    dotenv "^16.0.0"
+    dotenv-expand "^8.0.1"
+    minimist "^1.2.5"
+
+dotenv-expand@^8.0.1, dotenv-expand@^8.0.3:
   version "8.0.3"
   resolved "https://registry.yarnpkg.com/dotenv-expand/-/dotenv-expand-8.0.3.tgz#29016757455bcc748469c83a19b36aaf2b83dd6e"
   integrity sha512-SErOMvge0ZUyWd5B0NXMQlDkN+8r+HhVUsxgOO7IoPDOdDRD2JjExpN6y3KnFR66jsJMwSn1pqIivhU5rcJiNg==

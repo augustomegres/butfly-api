@@ -2,6 +2,22 @@ version: "3.9"
 name: "butfly"
 
 services:
+  butfly-api:
+    build: .
+    container_name: butfly-api
+    restart: always
+    volumes:
+    - .:/usr/app
+    depends_on:
+      butfly-database:
+        condition: service_healthy
+    ports:
+      - 3333:3333
+    env_file:
+      - ./.env.dev
+    depends_on:
+      - butfly-database
+
   butfly-database:
     image: postgres:latest
     container_name: butfly-database
