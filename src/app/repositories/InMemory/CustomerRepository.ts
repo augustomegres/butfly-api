@@ -7,6 +7,7 @@ import {
   ListCustomers,
 } from "@app/contracts/repositories/ICustomerRepository"
 import { QueryParamOperators } from "@src/@types/QueryParamTypes"
+import { Address } from "@entities/Address"
 
 export class CustomerRepository implements ICustomerRepository {
   customers: Customer[]
@@ -14,8 +15,8 @@ export class CustomerRepository implements ICustomerRepository {
     this.customers = customers
   }
 
-  async findOne(uid: string): Promise<Customer | undefined> {
-    return this.customers.find((customer) => customer.uid === uid)
+  async findOne(uid: string): Promise<Customer | null> {
+    return this.customers.find((customer) => customer.uid === uid) || null
   }
 
   async findAll({
@@ -84,5 +85,15 @@ export class CustomerRepository implements ICustomerRepository {
 
   async deleteAddress(addressUid: string): Promise<void> {
     this.customers.map((customer) => (customer.addresses = customer.addresses.filter((address) => address.uid !== addressUid)))
+  }
+
+  async updateAddress(addressUid: string, addressData: Partial<Address>): Promise<void> {
+    this.customers.map((customer) => {
+      customer.addresses.map((address) => {
+        if (address.uid === addressUid) {
+          address = { ...address, ...addressData }
+        }
+      })
+    })
   }
 }

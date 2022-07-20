@@ -11,9 +11,7 @@ describe("DeleteCustomerAddresses", () => {
     const customer = await createCustomer.execute({
       data: {
         name: "Customer Name",
-        addresses: [
-          { city: "Any City", neighborhood: "Any Neighborhood", number: "1", state: "MG", street: "Rua Amazonas", zipCode: "36773-119", uid: "uid" },
-        ],
+        addresses: [{ city: "Any City", neighborhood: "Any Neighborhood", number: "1", state: "MG", street: "Rua Amazonas", zipCode: "36773-119" }],
       },
       companyUid: "uid",
     })
@@ -25,9 +23,7 @@ describe("DeleteCustomerAddresses", () => {
     const customer = await createCustomer.execute({
       data: {
         name: "Customer Name",
-        addresses: [
-          { city: "Any City", neighborhood: "Any Neighborhood", number: "1", state: "MG", street: "Rua Amazonas", zipCode: "36773-119", uid: "uid" },
-        ],
+        addresses: [{ city: "Any City", neighborhood: "Any Neighborhood", number: "1", state: "MG", street: "Rua Amazonas", zipCode: "36773-119" }],
       },
       companyUid: "uid",
     })

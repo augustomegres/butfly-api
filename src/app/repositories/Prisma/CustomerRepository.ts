@@ -1,4 +1,5 @@
 import { CreateAddressProps, CreateEmailProps, CreatePhoneProps, ICustomerRepository } from "@app/contracts/repositories/ICustomerRepository"
+import { Address } from "@entities/Address"
 import { PrismaClient } from "@prisma/client"
 import { QueryParamOperators } from "@src/@types/QueryParamTypes"
 import { Customer } from "@src/domain/entities/Customer"
@@ -12,6 +13,12 @@ export class CustomerRepository implements ICustomerRepository {
   constructor(prismaDatabase: PrismaClient) {
     this.database = prismaDatabase
   }
+  async updateAddress(addressUid: string, addressData: Partial<Address>): Promise<void> {
+    await this.database.customerAddress.update({
+      data: { ...addressData },
+      where: { uid: addressUid },
+    })
+  }
 
   async deletePhone(phoneUid: string): Promise<void> {
     await this.database.customerPhone.delete({
@@ -19,12 +26,12 @@ export class CustomerRepository implements ICustomerRepository {
     })
   }
 
-  async findByEmail(email: string): Promise<Customer | undefined | null> {
+  async findByEmail(email: string): Promise<Customer | null | undefined> {
     const customer = await this.database.customer.findFirst({
       where: { emails: { some: { email: email } } },
-      include: { emails: true },
+      include: { emails: true, phones: true, addresses: true },
     })
-    return customer as Customer | undefined | null
+    return customer
   }
 
   async createEmail(email: CreateEmailProps, customerUid: string): Promise<void> {

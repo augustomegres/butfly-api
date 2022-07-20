@@ -11,7 +11,7 @@ interface AddressProps {
   state: string
   street: string
   zipCode: string
-  complement?: string
+  complement?: string | null
 }
 
 export class CreateCustomerAddressUseCase {

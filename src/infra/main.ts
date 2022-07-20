@@ -1,11 +1,25 @@
+import { PrismaRepositoryFactory } from "@app/factories/PrismaRepositoryFactory"
 import { CreateCustomerUseCase } from "@app/useCases/CreateCustomer"
+import { CreateCustomerAddressUseCase } from "@app/useCases/CreateCustomerAddress"
+import { CreateCustomerEmailUseCase } from "@app/useCases/CreateCustomerEmail"
+import { CreateCustomerPhoneUseCase } from "@app/useCases/CreateCustomerPhone"
 import { CreateProductUseCase } from "@app/useCases/CreateProduct"
 import { CreateUserUseCase } from "@app/useCases/CreateUser"
+import { DeleteCustomerAddressUseCase } from "@app/useCases/DeleteCustomerAddress"
+import { DeleteCustomerPhoneUseCase } from "@app/useCases/DeleteCustomerPhone"
 import { GetCustomerUseCase } from "@app/useCases/GetCustomer"
 import { GetCustomersUseCase } from "@app/useCases/GetCustomers"
 import { GetUserCompanies } from "@app/useCases/GetUserCompanies"
 import { MeUseCase } from "@app/useCases/Me"
-import { PrismaRepositoryFactory } from "@app/factories/PrismaRepositoryFactory"
+import { UpdateCustomerAddressUseCase } from "@app/useCases/UpdateCustomerAddress"
+import { CreateCustomerAddressController } from "@http/controllers/CreateCustomerAddressController"
+import { CreateCustomerEmailController } from "@http/controllers/CreateCustomerEmailController"
+import { CreateCustomerPhoneController } from "@http/controllers/CreateCustomerPhoneController"
+import { DeleteCustomerAddressController } from "@http/controllers/DeleteCustomerAddressController"
+import { DeleteCustomerPhoneController } from "@http/controllers/DeleteCustomerPhoneController"
+import { UpdateCustomerController } from "@http/controllers/UpdateCustomerController"
+import { AuthenticateUserController } from "@infra/http/controllers/AuthenticateUserController"
+import { CreateCompanyController } from "@infra/http/controllers/CreateCompanyController"
 import { CreateCustomerController } from "@infra/http/controllers/CreateCustomerController"
 import { CreateProductController } from "@infra/http/controllers/CreateProductController"
 import { CreateUserController } from "@infra/http/controllers/CreateUserController"
@@ -17,18 +31,6 @@ import { AuthMiddleware } from "@infra/http/middlewares/authMiddleware"
 import { CompanyMiddleware } from "@infra/http/middlewares/companyMiddleware"
 import { AuthenticateUserUseCase } from "@src/app/useCases/AuthenticateUser"
 import { CreateCompanyUseCase } from "@src/app/useCases/CreateCompany"
-import { AuthenticateUserController } from "@infra/http/controllers/AuthenticateUserController"
-import { CreateCompanyController } from "@infra/http/controllers/CreateCompanyController"
-import { CreateCustomerEmailUseCase } from "@app/useCases/CreateCustomerEmail"
-import { CreateCustomerEmailController } from "@http/controllers/CreateCustomerEmailController"
-import { CreateCustomerPhoneController } from "@http/controllers/CreateCustomerPhoneController"
-import { CreateCustomerPhoneUseCase } from "@app/useCases/CreateCustomerPhone"
-import { CreateCustomerAddressUseCase } from "@app/useCases/CreateCustomerAddress"
-import { CreateCustomerAddressController } from "@http/controllers/CreateCustomerAddressController"
-import { DeleteCustomerPhoneUseCase } from "@app/useCases/DeleteCustomerPhone"
-import { DeleteCustomerPhoneController } from "@http/controllers/DeleteCustomerPhoneController"
-import { DeleteCustomerAddressUseCase } from "@app/useCases/DeleteCustomerAddress"
-import { DeleteCustomerAddressController } from "@http/controllers/DeleteCustomerAddressController"
 
 const repositoryFactory = new PrismaRepositoryFactory()
 
@@ -77,6 +79,9 @@ const createCustomerAddressController = new CreateCustomerAddressController(crea
 const createProductUseCase = new CreateProductUseCase(repositoryFactory)
 const createProductController = new CreateProductController(createProductUseCase)
 
+const updateCustomerAddress = new UpdateCustomerAddressUseCase(repositoryFactory)
+const updateCustomerAddressController = new UpdateCustomerController(updateCustomerAddress)
+
 export {
   authMiddleware,
   meController,
@@ -94,4 +99,5 @@ export {
   deleteCustomerAddressController,
   createCustomerAddressController,
   getUserCompaniesController,
+  updateCustomerAddressController,
 }

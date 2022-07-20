@@ -12,7 +12,7 @@ export class DeleteCustomerAddressUseCase {
     const customer = await this.customerRepository.findOne(customerUid)
     if (!customer) throw new AppError("Customer not exists")
     if (!addressUid) throw new AppError("Address uid must be provided")
-    const address = customer.addresses.find((address: { uid: string; address: string }) => address.uid === addressUid)
+    const address = customer.addresses.find((address) => address.uid === addressUid)
     if (!address) throw new AppError("Address not exists")
     await this.customerRepository.deleteAddress(addressUid)
   }

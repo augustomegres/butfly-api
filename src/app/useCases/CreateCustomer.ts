@@ -11,7 +11,7 @@ export interface CreateCustomerData {
   surname?: string
   emails?: string[]
   phones?: string[]
-  addresses?: Address[]
+  addresses?: Omit<Address, "uid">[]
   observations?: string
 }
 

@@ -8,8 +8,8 @@ export class Customer {
   uid: string
   companyUid: string
   name: string
-  surname?: string
-  observations?: string
+  surname?: string | null
+  observations?: string | null
   addresses: Address[]
   emails: { uid: string; email: string }[]
   phones: { uid: string; phone: string }[]

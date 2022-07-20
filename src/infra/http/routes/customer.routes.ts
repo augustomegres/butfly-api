@@ -9,6 +9,7 @@ import {
   deleteCustomerAddressController,
   getCustomerController,
   getCustomersController,
+  updateCustomerAddressController,
 } from "@infra/main"
 
 import { Router } from "express"
@@ -63,5 +64,11 @@ customer.post(
   "/companies/:companyUid/customers/:customerUid/addresses",
   async (req, res, next) => await companyMiddleware.handle(req, res, next),
   async (req, res) => await createCustomerAddressController.handle(req, res)
+)
+
+customer.put(
+  "/companies/:companyUid/customers/:customerUid/addresses/:addressUid",
+  async (req, res, next) => await companyMiddleware.handle(req, res, next),
+  async (req, res) => await updateCustomerAddressController.handle(req, res)
 )
 export { customer }
