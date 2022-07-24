@@ -1,0 +1,32 @@
+name: "butfly"
+
+services:
+  butfly-api:
+    build: .
+    container_name: butfly-api
+    restart: always
+    volumes:
+    - .:/usr/app
+    depends_on:
+      butfly-database:
+        condition: service_healthy
+    ports:
+      - 3333:3333
+    environment: 
+      - DB_HOST=butfly-database
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_PORT=5432
+    depends_on:
+      - butfly-database
+
+  butfly-database:
+    image: postgres:latest
+    container_name: butfly-database
+    restart: always
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_DB=butfly
