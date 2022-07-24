@@ -13,7 +13,7 @@ services:
     ports:
       - 3333:3333
     environment: 
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=butfly-database
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - DB_PORT=${DB_PORT}
